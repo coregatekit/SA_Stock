@@ -7,14 +7,24 @@ import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolb
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
+
+import { StockComponent } from './stock/stock.component';
+
 
 const appRoutes: Routes = [
-  
+  { path: '', redirectTo: '/app', pathMatch: 'full' }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StockComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +36,13 @@ const appRoutes: Routes = [
     MatListModule,
     MatToolbarModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    MatMenuModule,
+    MatGridListModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatExpansionModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

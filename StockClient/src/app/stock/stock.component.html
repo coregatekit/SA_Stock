@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+<header>
+  <div class="button-row">
+    <mat-toolbar>
+      <mat-toolbar-row color="primary">
+        <button mat-button>หน้าแรก</button>
+        <button mat-button>ระบบสต๊อก</button>
+
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</header>
+
+<section>
+  <nav>
+    <div class="left-menu">
+      <mat-toolbar style="background-color: honeydew">
+        <mat-toolbar-row>
+          <button mat-button>หน้าหลักของระบบ</button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+    </div>
+  </nav>
+
+  <article>
+      <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                หมวดจัดการสินค้า
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="add-remove">
+                <mat-tab-group>
+                  <mat-tab label="เพิ่มสินค้าใหม่">
+                    <table class="add-new-product" cellspacing="5">
+                        <tr>
+                          <mat-form-field class="product-name">
+                            <input matInput placeholder="ชื่อสินค้า">
+                          </mat-form-field>
+                        </tr>
+                        <tr>
+                          <mat-form-field class="product-img-url">
+                              <input matInput placeholder="ลิงค์รูปภาพสินค้า">
+                          </mat-form-field>
+                        </tr>
+                        <tr>
+                          <mat-form-field class="product-amount">
+                            <input matInput placeholder="จำนวน">
+                          </mat-form-field>
+                        </tr>
+                        <tr>
+                          <mat-form-field class="product-price">
+                              <input matInput placeholder="ราคา" class="example-right-align">
+                              <span matPrefix>฿&nbsp;</span>
+                          </mat-form-field>
+                        </tr>
+                        <tr>
+                          <mat-form-field [style.fontSize]="16" class="product-detail">
+                            <mat-label>รายละเอียดสินค้า</mat-label>
+                            <textarea matInput
+                                      cdkTextareaAutosize
+                                      #autosize="cdkTextareaAutosize"
+                                      cdkAutosizeMinRows="2"
+                                      cdkAutosizeMaxRows="5"></textarea>
+                          </mat-form-field>
+                        </tr>
+                        <tr>
+                          <button mat-raised-button color="primary">ยืนยัน</button>
+                        </tr>
+                      </table>
+                  </mat-tab>
+        
+                  <mat-tab label="เพิ่มลดจำนวนสินค้า">
+                    <table class="add-new-product" cellspacing="5">
+                      <tr>
+                        <mat-form-field class="product-name">
+                          <input matInput placeholder="ชื่อสินค้า">
+                        </mat-form-field>
+                      </tr>
+                      <tr>
+                        <mat-form-field class="product-add-amount">
+                          <input matInput placeholder="เพิ่ม">
+                        </mat-form-field>
+                      </tr>
+                      <tr>
+                        <mat-form-field class="product-reduce-amount">
+                          <input matInput placeholder="ลด">
+                        </mat-form-field>
+                      </tr>
+                  
+                      <tr>
+                        <button mat-raised-button color="primary">ยืนยัน</button>
+                      </tr>
+                    </table>
+                  </mat-tab>
+        
+                  <mat-tab label="แก้ไขข้อมูลสินค้า">
+                    <table class="edit-product" cellspacing="5">
+                      <tr>
+                        <mat-form-field class="product-name">
+                          <input matInput placeholder="ชื่อสินค้า">
+                        </mat-form-field>
+                      </tr>
+                      <tr>
+                          <mat-form-field class="product-img-url">
+                              <input matInput placeholder="ลิงค์รูปภาพสินค้า">
+                          </mat-form-field>
+                      </tr>
+                      <tr>
+                          <mat-form-field class="product-price">
+                              <input matInput placeholder="ราคา" class="example-right-align">
+                              <span matPrefix>฿&nbsp;</span>
+                          </mat-form-field>
+                      </tr>
+                      <tr>
+                        <mat-form-field [style.fontSize]="16" class="product-detail">
+                          <mat-label>รายละเอียดสินค้า</mat-label>
+                          <textarea matInput
+                                    cdkTextareaAutosize
+                                    #autosize="cdkTextareaAutosize"
+                                    cdkAutosizeMinRows="2"
+                                    cdkAutosizeMaxRows="5"></textarea>
+                        </mat-form-field>
+                      </tr>
+                      <tr>
+                        <button mat-raised-button color="primary">ยืนยัน</button>
+                      </tr>
+                    </table>
+                  </mat-tab>
+                </mat-tab-group>
+            </div>
+          </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              หมวดจัดการคลังสินค้า
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="manage-warehouse">
+              <mat-tab-group>
+                <mat-tab label="คลังในประเทศ">
+                  <br>
+                  <mat-form-field>
+                      <mat-select placeholder="สาขาคลังสินค้า">
+                        <mat-option *ngFor="let WHTH of th_warehouse" [value]="WHTH.value">
+                          {{WHTH.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <br>
+                  <table id="tb-th-warehouse">
+                        <tr>
+                          <th>สินค้าในคลังสาขา</th>
+                          <th>สินค้าที่จัดส่งลูกค้า</th>
+                        </tr>
+                        <tr>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                        </tr>
+                  </table>
+
+                  <br><h3>กระจายสินค้า</h3>
+                  <div id="distribute-product">
+                      <mat-form-field>
+                        <mat-select placeholder="สาขาต้นทาง">
+                          <mat-option *ngFor="let WHTH of th_warehouse" [value]="WHTH.value">
+                            {{WHTH.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <br>
+                      <mat-form-field>
+                        <mat-select placeholder="สาขาปลายทาง">
+                          <mat-option *ngFor="let WHTH of th_warehouse" [value]="WHTH.value">
+                            {{WHTH.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <br>
+                      <mat-form-field>
+                        <mat-select placeholder="สินค้า">
+                          <mat-option *ngFor="let Products of products_list" [value]="Products.value">
+                            {{Products.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <br>
+                      <form class="example-form">
+                        <mat-form-field class="goods-amount">
+                        <input matInput placeholder="จำนวน">
+                      </mat-form-field>
+                      </form>
+                      <br>
+                      <button mat-raised-button color="primary">ยืนยัน</button>
+                    </div>
+                </mat-tab>
+        
+                <mat-tab label="คลังต่างประเทศ">
+                    <mat-form-field>
+                        <mat-select placeholder="สาขาคลังสินค้า">
+                          <mat-option *ngFor="let WHAB of ab_warehouse" [value]="WHAB.value">
+                            {{WHAB.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                  <br>
+                  <table id="tb-ab-warhouse" >
+                    <tr>
+                      <th>สินค้าคลังต่างประเทศ</th>
+                      <th>สินค้าที่กำลังจัดซื้อในต่างประเทศ</th>
+                    </tr>
+                    <tr>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                    </tr>
+                  </table>
+                  <br><h3>ส่งสินค้ากลับไทย</h3>
+                  <div id="send-back-product">
+                      <mat-form-field>
+                        <mat-select placeholder="สาขาต้นทาง">
+                          <mat-option *ngFor="let WHAB of ab_warehouse" [value]="WHAB.value">
+                            {{WHAB.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <br>
+                      <mat-form-field>
+                        <mat-select placeholder="สาขาปลายทาง">
+                          <mat-option *ngFor="let FinalDestination of final_destination" [value]="FinalDestination.value">
+                            {{FinalDestination.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <br>
+                      <mat-form-field>
+                        <mat-select placeholder="สินค้า">
+                          <mat-option *ngFor="let Products of products_list" [value]="Products.value">
+                            {{Products.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <br>
+                      <form class="example-form">
+                        <mat-form-field class="goods-amount">
+                          <input matInput placeholder="จำนวน">
+                        </mat-form-field>
+                      </form>
+                      <br>
+                      <button mat-raised-button color="primary">ยืนยัน</button>
+                    </div>
+                </mat-tab>
+              </mat-tab-group>
+      
+          </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                ระบบสั่งซื้อสินค้า
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="order-product">
+                <table class="order-product" cellspacing="5">
+                  <tr>
+                    <mat-form-field class="product-name">
+                      <input matInput placeholder="ชื่อสินค้า">
+                    </mat-form-field>
+                  </tr>
+              
+                  <tr>
+                    <mat-form-field class="product-amount">
+                      <input matInput placeholder="จำนวน">
+                    </mat-form-field>
+                  </tr>
+                  <tr>
+                    <mat-form-field class="product-price">
+                      <input matInput placeholder="ราคา">
+                    </mat-form-field>
+                  </tr>
+                  <tr>
+                    <mat-form-field class="product-shop">
+                      <input matInput placeholder="ร้านค้า/บริษัทของสินค้า">
+                    </mat-form-field>
+                  </tr>
+                  <tr>
+                    <mat-form-field>
+                      <mat-select placeholder="เมือง">
+                        <mat-option *ngFor="let CountryList of WCList" [value]="CountryList.value">
+                          {{CountryList.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </tr>
+              
+                  <tr>
+                    <button mat-raised-button color="primary">ยืนยัน</button>
+                  </tr>
+                </table>
+              
+            </div>  
+          </mat-expansion-panel>
+      </mat-accordion>
+
+  </article>
+</section>
+</body>
+</html>
