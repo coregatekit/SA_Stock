@@ -15,30 +15,30 @@ public class Stock{
 
     @Id
     @GeneratedValue
-    private @NonNull long S_Id;
+    private @NonNull long stockId;
     @Column(length = 100)
-    private int P_Amount;
+    private int stockProductAmount;
 
     // Stock --> Product
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "P_Id")
+    @JoinColumn(name= "productId")
     @JsonBackReference
     private Product product;
     
     // Stock --> Warehouse
     @ManyToOne(fetch = FetchType.LAZY)   
-    @JoinColumn(name= "WH_Id")     
+    @JoinColumn(name= "warehouseId")     
     @JsonBackReference 
     private Warehouse warehouse;    
 
     // Stock --> OrderProduct
     @OneToOne
-    @JoinColumn(name = "OP_Id")
+    @JoinColumn(name = "oderproductId")
     private OrderProduct orderProduct;
 
-    protected Stock(){}
-    public Stock(int P_Amount){
-        this.P_Amount = P_Amount;
+    public Stock(){}
+    public Stock(int stockProductAmount){
+        this.stockProductAmount = stockProductAmount;
     }
 
 }

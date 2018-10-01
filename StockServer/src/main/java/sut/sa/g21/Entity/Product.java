@@ -15,12 +15,12 @@ public class Product{
 
     @Id
     @GeneratedValue
-    private @NonNull long P_Id;
-    private @NonNull String P_Name;
+    private @NonNull long productId;
+    private @NonNull String productName;
     @Column(length = 100)
-    private String P_Detail;
-    private String P_ImgUrl;
-    private double P_Price;
+    private String productDetail;
+    private String productImgUrl;
+    private double productPrice;
 
     // Product --> Stock
     @OneToMany(
@@ -30,26 +30,25 @@ public class Product{
     private List<Stock> stocks = new ArrayList<>();
     
     
-
     public Product() {}
     
-    public Product(String P_Detail, double P_Price, String P_ImgUrl){
-        this.P_Detail = P_Detail;
-        this.P_Price = P_Price;
-        this.P_ImgUrl = P_ImgUrl;
+    public Product(String productDetail, double productPrice, String productImgUrl){
+        this.productDetail = productDetail;
+        this.productPrice = productPrice;
+        this.productImgUrl = productImgUrl;
     }
 
-    public void setName(String P_Name) {
-        this.P_Name = P_Name;
+    public void setName(String productName) {
+        this.productName = productName;
     }
-    public void setDetaiol(String P_Detail) {
-        this.P_Detail = P_Detail;
+    public void setDetaiol(String productDetail) {
+        this.productDetail = productDetail;
     }
-    public void setImgUrl(String P_ImgUrl) {
-        this.P_ImgUrl = P_ImgUrl;
+    public void setImgUrl(String productImgUrl) {
+        this.productImgUrl = productImgUrl;
     }
-    public void setPrice(double P_Price) {
-        this.P_Price = P_Price;
+    public void setPrice(double productPrice) {
+        this.productPrice = productPrice;
     }
 
 }

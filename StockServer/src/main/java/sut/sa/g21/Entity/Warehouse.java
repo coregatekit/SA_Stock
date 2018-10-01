@@ -16,10 +16,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Warehouse {
     @Id
     @GeneratedValue
-    private @NonNull long WH_Id;
-    private String WH_Name;
-    private String WH_Code;
-    private String WH_Address;
+    private @NonNull long warehouseId;
+    private String warehouseName;
+    private String warehouseCode;
+    private String warehouseAddress;
 
    
     // Warehouse --> Stock
@@ -30,13 +30,13 @@ public class Warehouse {
 
     public Warehouse(){}
     
-    public void setWHName(String WH_Name) {
-        this.WH_Name = WH_Name;
+    public void setWHName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
-    public void setWHCode(String WH_Code) {
-        this.WH_Code = WH_Code;
+    public void setWHCode(String warehouseCode) {
+        this.warehouseCode = warehouseCode;
     }
-    public void setWHAddress(String WH_Address) {
-        this.WH_Address = WH_Address;
+    public void setWHAddress(String warehouseAddress) {
+        this.warehouseAddress = warehouseAddress;
     }
 }

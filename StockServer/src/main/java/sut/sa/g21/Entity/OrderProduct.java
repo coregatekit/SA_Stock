@@ -16,15 +16,15 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class OrderProduct {
     @Id
     @GeneratedValue
-    private @NonNull long OP_Id;
+    private @NonNull long oderproductId;
     @Column(length = 100)
-    private int OP_OrderAmount;
-    private double OP_Total_Price;
+    private int oderproductOrderAmount;
+    private double oderproductTotalPrice;
 
     
-    protected OrderProduct(){}
-    public OrderProduct(int P_OrderAmount, double OP_Total_Price){
-        this.OP_OrderAmount = P_OrderAmount;
-        this.OP_Total_Price = OP_Total_Price;
+    public OrderProduct(){}
+    public OrderProduct(int oderproductOrderAmount, double oderproductTotalPrice){
+        this.oderproductOrderAmount = oderproductOrderAmount;
+        this.oderproductTotalPrice = oderproductTotalPrice;
     }
 }
