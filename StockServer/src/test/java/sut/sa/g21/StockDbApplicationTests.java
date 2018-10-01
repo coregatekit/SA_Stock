@@ -1,4 +1,4 @@
-package com.stock.StockDB;
+package sut.sa.g21;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

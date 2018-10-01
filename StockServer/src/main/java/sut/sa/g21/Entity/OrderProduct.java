@@ -1,4 +1,4 @@
-package com.stock.StockDB.Entity;
+package sut.sa.g21.Entity;
 
 import javax.persistence.*;
 import javax.persistence.Entity;

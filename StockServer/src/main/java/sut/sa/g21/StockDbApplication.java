@@ -1,4 +1,4 @@
-package com.stock.StockDB;
+package sut.sa.g21;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -6,8 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import java.util.stream.Stream;
 
-import com.stock.StockDB.Entity.*;
-import com.stock.StockDB.Repository.*;
+import sut.sa.g21.Entity.*;
+import sut.sa.g21.Repository.*;
+import sut.sa.g21.Entity.Product;
+import sut.sa.g21.Entity.Warehouse;
+import sut.sa.g21.Repository.OrderProductRepository;
+import sut.sa.g21.Repository.ProductRepository;
+import sut.sa.g21.Repository.StockRepository;
+import sut.sa.g21.Repository.WarehouseRepository;
 
 
 @SpringBootApplication
@@ -44,7 +50,7 @@ public class StockDbApplication {
 
 	@Bean
 	ApplicationRunner init(ProductRepository productRepository, StockRepository stockRepository,
-	 WarehouseRepository warehouseRepository, OrderProductRepository orderProductRepository) {
+						   WarehouseRepository warehouseRepository, OrderProductRepository orderProductRepository) {
 		return args -> {
 			for(int i = 0; i < productList.length; i++) {
 				Product goods = new Product();
