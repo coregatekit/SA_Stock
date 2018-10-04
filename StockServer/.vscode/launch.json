@@ -7,6 +7,17 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
+            "mainClass": "sut.sa.g21.StockDbApplication",
+            "args": "",
+            "projectName": "StockDB"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - StockDbApplication",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
             "mainClass": "com.stock.StockDB.StockDbApplication",
             "args": "",
             "projectName": "StockDB"

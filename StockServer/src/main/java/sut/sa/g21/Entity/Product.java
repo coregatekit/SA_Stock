@@ -28,26 +28,51 @@ public class Product{
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Stock> stocks = new ArrayList<>();
+
+    /*
+    // Product --> Classification (Frame)
+    @ManyToOne()   
+    @JoinColumn(name= "classId")     
+    private Classification classification;
     
+    // Product --> Country (Frame)
+    @ManyToOne()
+    @JoinColumn(name= "countryId")
+    private Country country;
+
+    // Product --> Type (Frame)
+    @ManyToOne()
+    @JoinColumn(name= "typeId")
+    private Type type;
+    */
     
     public Product() {}
     
-    public Product(String productDetail, double productPrice, String productImgUrl){
+    /*
+    public Product(String productName,String productDetail,double productPrice,String productImgUrl,long classId,long countryId,long typeId){
+        Country country = new Country(countryId);
+        Classification classification = new Classification(classId);
+        Type type = new Type(typeId);
+        this.productName = productName;
         this.productDetail = productDetail;
         this.productPrice = productPrice;
         this.productImgUrl = productImgUrl;
+        this.country = country;
+        this.classification = classification;
+        this.type = type;
     }
+    */
 
-    public void setName(String productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
-    public void setDetaiol(String productDetail) {
+    public void setProductDetail(String productDetail) {
         this.productDetail = productDetail;
     }
-    public void setImgUrl(String productImgUrl) {
+    public void setProductImgUrl(String productImgUrl) {
         this.productImgUrl = productImgUrl;
     }
-    public void setPrice(double productPrice) {
+    public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
     }
 

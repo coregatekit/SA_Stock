@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { StockService } from '../shared/stock/stock.service';
 
+export interface PeriodicElement {
+  productName: string;
+  productDetail: string;
+  productImgUrl: string;
+  productProce: number;
+}
+/*
 export interface CountryList {
   value: string;
   viewValue: string;
@@ -20,14 +28,18 @@ export interface FinalDestination {
   value: string;
   viewValue: string;
 }
-
+*/
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.css']
 })
 export class StockComponent implements OnInit {
-
+  inputNewProductName:string = '';    inputNewProductDetail:string = '';
+  inputNewProductImgUrl:string = '';  inputNewProductPrice:number = 0;
+  product: Array<any>;
+  warehouses: Array<any>;
+  /*
   WCList: CountryList[] = [
     {value: 'LOSANGELES', viewValue: 'Los Angeles, CA'},
     {value: 'MIAMI', viewValue: 'Miami, FL'},
@@ -73,10 +85,30 @@ export class StockComponent implements OnInit {
   final_destination: FinalDestination[] = [
     {value: 'PTE', viewValue: 'ปทุมธานี'}
   ];
+  */
 
-  constructor() { }
+  constructor(private stockService: StockService) { }
 
   ngOnInit() {
+    this.stockService.getOrderProduct().subscribe(data => {
+      this.warehouses = data;
+      console.log(this.warehouses);
+    });
+  }
+
+  addNewProduct() {
+    this.stockService.addNewProduct(this.inputNewProductName, this.inputNewProductDetail, this.inputNewProductImgUrl, this.inputNewProductPrice).subscribe(
+      data => {
+        console.log("POST Request is successful", data);
+        this.inputNewProductName = '';
+        this.inputNewProductDetail = '';
+        this.inputNewProductImgUrl = '';
+        this.inputNewProductPrice = 0;
+      },
+      error => {
+        console.log("Error", error);
+      }
+    );
   }
 
 }

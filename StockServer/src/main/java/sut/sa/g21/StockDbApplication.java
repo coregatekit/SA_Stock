@@ -54,10 +54,10 @@ public class StockDbApplication {
 		return args -> {
 			for(int i = 0; i < productList.length; i++) {
 				Product goods = new Product();
-				goods.setName(productList[i]);
-				goods.setDetaiol(detailProduc[i]);
-				goods.setImgUrl(imgUrl[i]);
-				goods.setPrice(productPrice[i]);
+				goods.setProductName(productList[i]);
+				goods.setProductDetail(detailProduc[i]);
+				goods.setProductImgUrl(imgUrl[i]);
+				goods.setProductPrice(productPrice[i]);
 				productRepository.save(goods);
 			}
 			for(int i = 0; i < WarehouseCodeList.length; i++) {

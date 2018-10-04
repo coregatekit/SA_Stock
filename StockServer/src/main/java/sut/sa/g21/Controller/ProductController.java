@@ -1,3 +1,4 @@
+/*
 package sut.sa.g21.Controller;
 
 import sut.sa.g21.Entity.Product;
@@ -24,3 +25,4 @@ public class ProductController {
         return productRepository.findAll();
     }
 }
+*/
