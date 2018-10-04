@@ -38,23 +38,23 @@
                 หมวดจัดการสินค้า
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="add-remove">
+            <div class="addNewProduct">
                 <mat-tab-group>
                   <mat-tab label="เพิ่มสินค้าใหม่">
                     <table class="add-new-product" cellspacing="5">
                         <tr>
                           <mat-form-field class="product-name">
-                            <input matInput placeholder="ชื่อสินค้า">
+                            <input matInput name="inputNewProductName" type="text" placeholder="ชื่อสินค้า">
                           </mat-form-field>
                         </tr>
                         <tr>
                           <mat-form-field class="product-img-url">
-                              <input matInput placeholder="ลิงค์รูปภาพสินค้า">
+                              <input matInput name="inputNewProductImgUrl" type="text" placeholder="ลิงค์รูปภาพสินค้า">
                           </mat-form-field>
                         </tr>
                         <tr>
                           <mat-form-field class="product-price">
-                              <input matInput placeholder="ราคา" class="example-right-align">
+                              <input matInput name="inputNewProductPrice" type="text"  placeholder="ราคา" class="example-right-align">
                               <span matPrefix>฿&nbsp;</span>
                           </mat-form-field>
                         </tr>
@@ -65,11 +65,12 @@
                                       cdkTextareaAutosize
                                       #autosize="cdkTextareaAutosize"
                                       cdkAutosizeMinRows="2"
-                                      cdkAutosizeMaxRows="5"></textarea>
+                                      cdkAutosizeMaxRows="5"
+                                      name="inputNewProductDetail"></textarea>
                           </mat-form-field>
                         </tr>
                         <tr>
-                          <button mat-raised-button color="primary">ยืนยัน</button>
+                          <button mat-raised-button color="primary" (click)="addNewProduct()">ยืนยัน</button>
                         </tr>
                       </table>
                   </mat-tab>
