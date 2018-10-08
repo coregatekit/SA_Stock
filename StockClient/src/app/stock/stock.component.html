@@ -125,8 +125,8 @@
                   <br>
                   <mat-form-field>
                       <mat-select placeholder="สาขาคลังสินค้า">
-                        <mat-option *ngFor="let WHTH of th_warehouse" [value]="WHTH.value">
-                          {{WHTH.viewValue}}
+                        <mat-option *ngFor="let ThaiWarehouse of warehouseTH" [value]="ThaiWarehouse.warehouseName">
+                          {{ThaiWarehouse.warehouseName}}
                         </mat-option>
                       </mat-select>
                   </mat-form-field>

@@ -38,7 +38,8 @@ export class StockComponent implements OnInit {
   inputNewProductName:string = '';    inputNewProductDetail:string = '';
   inputNewProductImgUrl:string = '';  inputNewProductPrice:number = 0;
   product: Array<any>;
-  warehouses: Array<any>;
+  warehouseTH: Array<any>;
+  warehouseAB: Array<any>;
   /*
   WCList: CountryList[] = [
     {value: 'LOSANGELES', viewValue: 'Los Angeles, CA'},
@@ -90,9 +91,9 @@ export class StockComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   ngOnInit() {
-    this.stockService.getOrderProduct().subscribe(data => {
-      this.warehouses = data;
-      console.log(this.warehouses);
+    this.stockService.getWarehouse().subscribe(data => {
+      this.warehouseTH = data;
+      console.log(this.warehouseTH);
     });
   }
 
