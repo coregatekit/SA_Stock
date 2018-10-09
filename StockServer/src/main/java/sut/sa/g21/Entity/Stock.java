@@ -14,31 +14,32 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Stock{
 
     @Id
-    @GeneratedValue
-    private @NonNull long stockId;
-    @Column(length = 100)
-    private int stockProductAmount;
+	@SequenceGenerator(name="stock_seq",sequenceName="stock_seq")       
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="stock_seq")      
+	@Column(name="Stock_id",unique = true, nullable = true)
+	private @NonNull Long id;
+    private int ProductAmount;
 
     // Stock --> Product
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "productId")
+    @JoinColumn(name= "Product_id")
     @JsonBackReference
     private Product product;
     
     // Stock --> Warehouse
     @ManyToOne(fetch = FetchType.LAZY)   
-    @JoinColumn(name= "warehouseId")     
+    @JoinColumn(name= "Warehouse_id")     
     @JsonBackReference 
     private Warehouse warehouse;    
 
     // Stock --> OrderProduct
     @OneToOne
-    @JoinColumn(name = "oderproductId")
+    @JoinColumn(name = "OrderProduct_id")
     private OrderProduct orderProduct;
 
     public Stock(){}
-    public Stock(int stockProductAmount){
-        this.stockProductAmount = stockProductAmount;
+    public Stock(int ProductAmount){
+        this.ProductAmount = ProductAmount;
     }
 
 }

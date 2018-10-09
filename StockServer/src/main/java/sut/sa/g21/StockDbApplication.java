@@ -54,20 +54,20 @@ public class StockDbApplication {
 		return args -> {
 			for(int i = 0; i < productList.length; i++) {
 				Product goods = new Product();
-				goods.setProductName(productList[i]);
-				goods.setProductDetail(detailProduc[i]);
-				goods.setProductImgUrl(imgUrl[i]);
-				goods.setProductPrice(productPrice[i]);
+				goods.setName(productList[i]);
+				goods.setDetail(detailProduc[i]);
+				goods.setImgUrl(imgUrl[i]);
+				goods.setPrice(productPrice[i]);
 				productRepository.save(goods);
 			}
 			for(int i = 0; i < WarehouseCodeList.length; i++) {
 				Warehouse warehouse = new Warehouse();
-				warehouse.setWHName(WarehouseNameList[i]);
-				warehouse.setWHCode(WarehouseCodeList[i]);
+				warehouse.setName(WarehouseNameList[i]);
+				warehouse.setCode(WarehouseCodeList[i]);
 				if(i < 5) {
-					warehouse.setWHAddress("THAI");
+					warehouse.setAddress("THAI");
 				} else {
-					warehouse.setWHAddress("FOREIGN");
+					warehouse.setAddress("FOREIGN");
 				}
 				warehouseRepository.save(warehouse);
 			}

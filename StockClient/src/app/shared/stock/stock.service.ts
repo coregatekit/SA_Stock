@@ -26,7 +26,7 @@ export class StockService {
   getWarehouse(): Observable<any> {
     return this.http.get(this.API + '/Warehouse');
   }
-
+  
   public addNewProduct(newProductName:string, newProductDetail:string, newProductImgUrl:string, newProductPrice:number):Observable<any> {
       return this.http.put(this.API + '/Product/addProduct/'+newProductName+'/'+newProductDetail+'/'+newProductImgUrl+'/'+newProductPrice,{
         "productName":newProductName,

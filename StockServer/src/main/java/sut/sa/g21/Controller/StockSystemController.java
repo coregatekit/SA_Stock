@@ -30,25 +30,25 @@ public class StockSystemController {
     @Autowired private WarehouseRepository warehouseRepository;
 
     // OrderProduct
-    @GetMapping("/OrderProduct")
+    @GetMapping("/OrderProducts")
     public Collection<OrderProduct> orderProducts(){
         return orderProductRepository.findAll();
     }
     
 
     // Stock
-    @GetMapping("/Stock")
+    @GetMapping("/Stocks")
     public Collection<Stock> stocks() {
         return stockRepository.findAll();
     }
     
 
     // Product
-    @GetMapping("/Product")
+    @GetMapping("/Products")
     public Collection<Product> products() {
         return productRepository.findAll();
     }
-    @GetMapping("/Product/{productId}")
+    @GetMapping("/Products/{productId}")
     public Optional<Product> takeinProductByid(@PathVariable Long productId ) {
         return productRepository.findById(productId);
     }
@@ -75,24 +75,24 @@ public class StockSystemController {
     }
     */
     // ทดสอบโดย ใช้คำสั่ง curl -iX POST http://localhost:8080/Product/addProduct/AWM/AWM/AWM/5900
-    @PostMapping("/Product/addProduct/{productName}/{productDetail}/{productImgUrl}/{productPrice}")
+    @PostMapping("/Products/addProduct/{productName}/{productDetail}/{productImgUrl}/{productPrice}")
     public Product addProduct(@PathVariable String productName, @PathVariable String productDetail, @PathVariable String productImgUrl, @PathVariable double productPrice) {
        Product newProduct = new Product();
-       newProduct.setProductName(productName);
-       newProduct.setProductDetail(productDetail);
-       newProduct.setProductImgUrl(productImgUrl);
-       newProduct.setProductPrice(productPrice);
+       newProduct.setName(productName);
+       newProduct.setDetail(productDetail);
+       newProduct.setImgUrl(productImgUrl);
+       newProduct.setPrice(productPrice);
        return productRepository.save(newProduct);
     }
 
     // Warehouse
-    @GetMapping("/Warehouse")
+    @GetMapping("/Warehouses")
     public Collection<Warehouse> warehouses() {
         return warehouseRepository.findAll();
     }
-    @GetMapping("/Warehouse/{warehouseId}")
+    @GetMapping("/Warehouses/{warehouseId}")
     public Optional<Warehouse> takeinWarehouseByid(@PathVariable Long warehouseId) {
         return warehouseRepository.findById(warehouseId);
     }
-
+    
 }

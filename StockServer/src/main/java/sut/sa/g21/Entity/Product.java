@@ -9,18 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name="Product")
 public class Product{
 
     @Id
-    @GeneratedValue
-    private @NonNull long productId;
-    private @NonNull String productName;
-    @Column(length = 100)
-    private String productDetail;
-    private String productImgUrl;
-    private double productPrice;
+	@SequenceGenerator(name="product_seq",sequenceName="product_seq")       
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="product_seq")      
+	@Column(name="Prdouct_id",unique = true, nullable = true)
+	private @NonNull Long id;
+    private @NonNull String Name;
+    private String Detail;
+    private String ImgUrl;
+    private double Price;
 
     // Product --> Stock
     @OneToMany(
@@ -63,17 +64,18 @@ public class Product{
     }
     */
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    /*
+    public void setProductName(String Name) {
+        this.Name = Name;
     }
-    public void setProductDetail(String productDetail) {
-        this.productDetail = productDetail;
+    public void setProductDetail(String Detail) {
+        this.Detail = Detail;
     }
-    public void setProductImgUrl(String productImgUrl) {
-        this.productImgUrl = productImgUrl;
+    public void setProductImgUrl(String ImgUrl) {
+        this.ImgUrl = ImgUrl;
     }
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
+    public void setProductPrice(double Price) {
+        this.Price = Price;
     }
-
+    */
 }

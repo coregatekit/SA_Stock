@@ -15,11 +15,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name="Warehouse")
 public class Warehouse {
     @Id
-    @GeneratedValue
-    private @NonNull long warehouseId;
-    private String warehouseName;
-    private String warehouseCode;
-    private String warehouseAddress;
+	@SequenceGenerator(name="warehouse_seq",sequenceName="warehouse_seq")       
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="warehouse_seq")      
+	@Column(name="Warehouse_id",unique = true, nullable = true)
+	private @NonNull Long id;
+    private String Name;
+    private String Code;
+    private String Address;
 
    
     // Warehouse --> Stock
@@ -30,13 +32,15 @@ public class Warehouse {
 
     public Warehouse(){}
     
-    public void setWHName(String warehouseName) {
-        this.warehouseName = warehouseName;
+    /*
+    public void setName(String Name) {
+        this.Name = Name;
     }
-    public void setWHCode(String warehouseCode) {
-        this.warehouseCode = warehouseCode;
+    public void setCode(String code) {
+        this.Code = Code;
     }
-    public void setWHAddress(String warehouseAddress) {
-        this.warehouseAddress = warehouseAddress;
+    public void setAddress(String adress) {
+        this.Address = Address;
     }
+    */
 }
