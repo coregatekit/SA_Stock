@@ -2,8 +2,11 @@ package sut.sa.g21.Controller;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.Collection;
 import java.util.Optional;
+
+import javax.persistence.criteria.Order;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -31,11 +34,10 @@ public class StockSystemController {
 
     // OrderProduct
     @GetMapping("/OrderProducts")
-    public Collection<OrderProduct> orderProducts(){
+    public Collection<OrderProduct> orderProducts() {
         return orderProductRepository.findAll();
     }
-    
-
+        
     // Stock
     @GetMapping("/Stocks")
     public Collection<Stock> stocks() {
@@ -94,5 +96,52 @@ public class StockSystemController {
     public Optional<Warehouse> takeinWarehouseByid(@PathVariable Long warehouseId) {
         return warehouseRepository.findById(warehouseId);
     }
+    
+
+    @PostMapping("/addOrderProduct")
+    public OrderProduct addOrderProducts(@PathVariable double TotalPrice, @PathVariable Long PreOderNo, @PathVariable int ProductAmount) {
+        OrderProduct newOrderProduct = new OrderProduct();
+        newOrderProduct.setTotalPrice(TotalPrice);
+        newOrderProduct.setPreOrderId(PreOderNo);
+        newOrderProduct.setAmount(ProductAmount);
+        return orderProductRepository.save(newOrderProduct);
+    }
+    @PostMapping("/addStock")
+    public Stock addStocks(@PathVariable Product productId, @PathVariable Warehouse warehouseId) {
+        Stock newStock = new Stock();
+        newStock.setProductId(productId);
+        newStock.setWarehouseId(warehouseId);
+        return stockRepository.save(newStock);
+    }
+
+    
+    
+    @PostMapping("/addOrderProduct/{productId}/{productAmount}/{totalPrice}/{preorderId}/{warehouseId}")
+    public Stock newOrderProduct(OrderProduct newOrder, @PathVariable Long productId, @PathVariable int productAmount, @PathVariable double totalPrice, @PathVariable Long preorderId, @PathVariable Long warehouseId) {
+        Optional<Product> takeProduct = productRepository.findById(productId);
+        Optional<Warehouse> takeWarehouse = warehouseRepository.findById(warehouseId);
+        newOrder.setAmount(productAmount);
+        newOrder.setTotalPrice(totalPrice);
+        newOrder.setPreOrderId(preorderId);
+        orderProductRepository.save(newOrder);
+
+        Optional<OrderProduct> takeOrderProduct = orderProductRepository.findById(newOrder.getId());
+        Stock newStock = new Stock();
+        newStock.setProductId(takeProduct.get());
+        newStock.setWarehouseId(takeWarehouse.get());
+        newStock.setOrderProductId(takeOrderProduct.get());
+        return stockRepository.save(newStock);
+    }
+    
+    
+    /*
+    @PostMapping("/addOrderProduct/{productId}/{productAmount}/{totalPrice}/{preorderId}/{warehouseId}")
+    public void newOrder(OrderProduct newOrder, @PathVariable Product productId, @PathVariable int productAmount, @PathVariable double totalPrice, @PathVariable Long preorderId, @PathVariable Warehouse warehouseId) {
+        
+        addOrderProducts(totalPrice, preorderId, productAmount);
+        addStocks(productId, warehouseId);
+        
+    }
+    */
     
 }

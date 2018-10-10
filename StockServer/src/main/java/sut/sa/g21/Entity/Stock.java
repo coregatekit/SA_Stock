@@ -17,8 +17,7 @@ public class Stock{
 	@SequenceGenerator(name="stock_seq",sequenceName="stock_seq")       
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="stock_seq")      
 	@Column(name="Stock_id",unique = true, nullable = true)
-	private @NonNull Long id;
-    private int ProductAmount;
+    private @NonNull Long id;
 
     // Stock --> Product
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,8 +37,15 @@ public class Stock{
     private OrderProduct orderProduct;
 
     public Stock(){}
-    public Stock(int ProductAmount){
-        this.ProductAmount = ProductAmount;
+
+    public void setProductId(Product id) {
+        this.product = id;
+    }
+    public void setWarehouseId(Warehouse id) {
+        this.warehouse = id;
+    }
+    public void setOrderProductId(OrderProduct id) {
+        this.orderProduct = id;
     }
 
 }

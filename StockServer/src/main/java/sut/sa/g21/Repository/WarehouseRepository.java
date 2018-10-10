@@ -7,5 +7,4 @@ import sut.sa.g21.Entity.Warehouse;
 
 @RepositoryRestResource
 public interface WarehouseRepository extends JpaRepository<Warehouse, Long> {
-    
 }

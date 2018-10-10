@@ -21,11 +21,12 @@ public class OrderProduct {
 	private @NonNull Long id;
     private int Amount;
     private double TotalPrice;
-
+    private long PreOrderId;
     
     public OrderProduct(){}
     public OrderProduct(int Amount, double TotalPrice){
         this.Amount = Amount;
         this.TotalPrice = TotalPrice;
     }
-}
+
+} 
