@@ -28,11 +28,21 @@ export class StockService {
   }
   
   public addNewProduct(newProductName:string, newProductDetail:string, newProductImgUrl:string, newProductPrice:number):Observable<any> {
-      return this.http.put(this.API + '/Product/addProduct/'+newProductName+'/'+newProductDetail+'/'+newProductImgUrl+'/'+newProductPrice,{
+      return this.http.post(this.API + '/Products/addProduct/'+newProductName+'/'+newProductDetail+'/'+newProductImgUrl+'/'+newProductPrice,{
         "productName":newProductName,
         "productDetail":newProductDetail,
         "productImgUrl":newProductImgUrl,
         "productPrice":newProductPrice
       });
+  }
+
+  public addOrder(ordProductId:number, ordProductAmount:number, ordTotalPrice:number, ordPreorderId:number, ordWarehouseId:number) {
+    return this.http.post(this.API + '/addOrderProduct/'+ordProductId+'/'+ordProductAmount+'/'+ordTotalPrice+'/'+ordPreorderId+'/'+ordWarehouseId,{
+      "productId":ordProductId,
+      "productAmount":ordProductAmount,
+      "totalPrice":ordTotalPrice,
+      "preorderId":ordPreorderId,
+      "warehouseId":ordWarehouseId
+    });
   }
 }

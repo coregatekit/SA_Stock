@@ -44,17 +44,17 @@
                     <table class="add-new-product" cellspacing="5">
                         <tr>
                           <mat-form-field class="product-name">
-                            <input matInput name="inputNewProductName" type="text" placeholder="ชื่อสินค้า">
+                            <input matInput name="newProductName" type="text" placeholder="ชื่อสินค้า" [(ngModel)]="newProductName">
                           </mat-form-field>
                         </tr>
                         <tr>
                           <mat-form-field class="product-img-url">
-                              <input matInput name="inputNewProductImgUrl" type="text" placeholder="ลิงค์รูปภาพสินค้า">
+                              <input matInput name="newProductImgUrl" type="text" placeholder="ลิงค์รูปภาพสินค้า" [(ngModel)]="newProductImgUrl">
                           </mat-form-field>
                         </tr>
                         <tr>
                           <mat-form-field class="product-price">
-                              <input matInput name="inputNewProductPrice" type="text"  placeholder="ราคา" class="example-right-align">
+                              <input matInput name="newProductPrice" type="text"  placeholder="ราคา" class="example-right-align" [(ngModel)]="newProductPrice">
                               <span matPrefix>฿&nbsp;</span>
                           </mat-form-field>
                         </tr>
@@ -66,7 +66,7 @@
                                       #autosize="cdkTextareaAutosize"
                                       cdkAutosizeMinRows="2"
                                       cdkAutosizeMaxRows="5"
-                                      name="inputNewProductDetail"></textarea>
+                                      name="newProductDetail" [(ngModel)]="newProductDetail"></textarea>
                           </mat-form-field>
                         </tr>
                         <tr>
@@ -248,23 +248,18 @@
                 <table class="order-product" cellspacing="5">
                   <tr>
                     <mat-form-field class="product-name">
-                      <input matInput placeholder="ชื่อสินค้า">
+                      <input matInput name="ordProductId" placeholder="ชื่อสินค้า" [(ngModel)]="ordProductId">
                     </mat-form-field>
                   </tr>
               
                   <tr>
                     <mat-form-field class="product-amount">
-                      <input matInput placeholder="จำนวน">
+                      <input matInput name="ordProductAmount" placeholder="จำนวน" [(ngModel)]="ordProductAmount">
                     </mat-form-field>
                   </tr>
                   <tr>
                     <mat-form-field class="product-price">
-                      <input matInput placeholder="ราคา">
-                    </mat-form-field>
-                  </tr>
-                  <tr>
-                    <mat-form-field class="product-shop">
-                      <input matInput placeholder="ร้านค้า/บริษัทของสินค้า">
+                      <input matInput name="ordTotalPrice" placeholder="ราคา" [(ngModel)]="ordTotalPrice">
                     </mat-form-field>
                   </tr>
                   <tr>
@@ -278,7 +273,7 @@
                   </tr>
               
                   <tr>
-                    <button mat-raised-button color="primary">ยืนยัน</button>
+                    <button mat-raised-button color="primary" (click)="addOrder()">ยืนยัน</button>
                   </tr>
                 </table>
               

@@ -1,115 +1,101 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StockService } from '../shared/stock/stock.service';
-
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 export interface PeriodicElement {
   productName: string;
   productDetail: string;
   productImgUrl: string;
   productProce: number;
 }
-/*
-export interface CountryList {
-  value: string;
-  viewValue: string;
-}
-export interface WHTH {
-  value: string;
-  viewValue: string;
-}
-export interface WHAB {
-  value: string;
-  viewValue: string;
-}
-export interface Products {
-  value: string;
-  viewValue: string;
-}
-export interface FinalDestination {
-  value: string;
-  viewValue: string;
-}
-*/
+
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.css']
 })
 export class StockComponent implements OnInit {
-  inputNewProductName:string = '';    inputNewProductDetail:string = '';
-  inputNewProductImgUrl:string = '';  inputNewProductPrice:number = 0;
-  product: Array<any>;
-  warehouseTH: Array<any>;
-  warehouseAB: Array<any>;
-  /*
-  WCList: CountryList[] = [
-    {value: 'LOSANGELES', viewValue: 'Los Angeles, CA'},
-    {value: 'MIAMI', viewValue: 'Miami, FL'},
-    {value: 'NEWYORK', viewValue: 'New York, NY'},
-    {value: 'LONDON', viewValue: 'London, UK'},
-    {value: 'BERLIN', viewValue: 'Berlin, Germany'},
-    {value: 'PARIS', viewValue: 'Paris, France'},
-    {value: 'TOKYO', viewValue: 'Tokyo, Japan'},
-    {value: 'SEOUL', viewValue: 'Seoul, South Korea'},
-    {value: 'TAIPEI', viewValue: 'Taipei, Taiwan'},
-    {value: 'Singapore', viewValue: 'Singapore'}
-  ];
 
-  ab_warehouse: WHAB[] = [
-    {value: 'LOSANGELES', viewValue: 'Los Angeles, CA'},
-    {value: 'MIAMI', viewValue: 'Miami, FL'},
-    {value: 'NEWYORK', viewValue: 'New York, NY'},
-    {value: 'LONDON', viewValue: 'London, UK'},
-    {value: 'BERLIN', viewValue: 'Berlin, Germany'},
-    {value: 'PARIS', viewValue: 'Paris, France'},
-    {value: 'TOKYO', viewValue: 'Tokyo, Japan'},
-    {value: 'SEOUL', viewValue: 'Seoul, South Korea'},
-    {value: 'TAIPEI', viewValue: 'Taipei, Taiwan'},
-    {value: 'Singapore', viewValue: 'Singapore'}
-  ];
+  stocks: Array<any>;
+  orderProducts: Array<any>;
+  products: Array<any>;
+  warehouses: Array<any>;
+  ordProductId: number;
+  ordPreorderId: number;
+  ordWarehouseId: number;
+  ordProductAmount: number;
+  ordTotalPrice: number;
+  newProductName: string = '';
+  newProductDetail: string = '';
+  newProductImgUrl: string = '';
+  newProductPrice: number = 0;
 
-  th_warehouse: WHTH[] = [
-    {value: 'CMI', viewValue: 'เชียงใหม่'},
-    {value: 'PTE', viewValue: 'ปทุมธานี'},
-    {value: 'NMA', viewValue: 'นครราชสีมา'},
-    {value: 'CBI', viewValue: 'ชลบุรี'},
-    {value: 'PKN', viewValue: 'ประจวบคีรีขันธ์'}
-  ];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  products_list: Products[] = [
-    {value: 'AAA', viewValue: 'AAA'},
-    {value: 'BBB', viewValue: 'BBB'},
-    {value: 'CCC', viewValue: 'CCC'},
-    {value: 'DDD', viewValue: 'DDD'},
-    {value: 'EEE', viewValue: 'EEE'}
-  ];
-
-  final_destination: FinalDestination[] = [
-    {value: 'PTE', viewValue: 'ปทุมธานี'}
-  ];
-  */
 
   constructor(private stockService: StockService) { }
-
   ngOnInit() {
+    this.getStockList();
+    this.getOrderProductList();
+    this.getProductList();
+    this.getWarehouseList();
+  }
+
+  getStockList() {
+    this.stockService.getStock().subscribe(data => {
+      this.stocks = data;
+      console.log(this.stocks);
+    });
+  }
+  getOrderProductList() {
+    this.stockService.getOrderProduct().subscribe(data => {
+      this.orderProducts = data;
+      console.log(this.orderProducts);
+    });
+  }
+  getProductList() {
+    this.stockService.getProduct().subscribe(data => {
+      this.products = data;
+      console.log(this.products);
+    });
+  }
+  getWarehouseList() {
     this.stockService.getWarehouse().subscribe(data => {
-      this.warehouseTH = data;
-      console.log(this.warehouseTH);
+      this.warehouses = data;
+      console.log(this.warehouses);
     });
   }
 
-  addNewProduct() {
-    this.stockService.addNewProduct(this.inputNewProductName, this.inputNewProductDetail, this.inputNewProductImgUrl, this.inputNewProductPrice).subscribe(
+
+  addOrder() {
+    this.stockService.addOrder(this.ordProductId, this.ordProductAmount, this.ordTotalPrice, this.ordPreorderId, this.ordWarehouseId).subscribe(
       data => {
-        console.log("POST Request is successful", data);
-        this.inputNewProductName = '';
-        this.inputNewProductDetail = '';
-        this.inputNewProductImgUrl = '';
-        this.inputNewProductPrice = 0;
+        console.log("Add order succesfull!", data);
+        this.getOrderProductList();
+        this.ordPreorderId = 0;
+        this.ordProductAmount = 0;
+        this.ordTotalPrice = 0;
+        this.ordPreorderId = 0;
+        this.ordWarehouseId = 0;
       },
       error => {
-        console.log("Error", error);
+        console.log("Error! cannot add new order", error);
       }
     );
   }
 
+  addNewProduct() {
+    this.stockService.addNewProduct(this.newProductName, this.newProductDetail, this.newProductImgUrl, this.newProductPrice).subscribe(
+      data => {
+        console.log("Add new product succesfull!", data);
+        this.getProductList();
+        this.newProductName = '';
+        this.newProductDetail = '';
+        this.newProductImgUrl = '';
+        this.newProductPrice = 0;
+      },
+      error => {
+        console.log("Error! cannot add new product!", error);
+      }
+    );
+  }
 }
