@@ -19,9 +19,9 @@ public class Warehouse {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="warehouse_seq")      
 	@Column(name="Warehouse_id",unique = true, nullable = true)
 	private @NonNull Long id;
-    private String Name;
-    private String Code;
-    private String Address;
+    private String warehouseName;
+    private String warehouseCode;
+    private String warehouseAddress;
 
    
     // Warehouse --> Stock

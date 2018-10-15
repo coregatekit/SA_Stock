@@ -1,2 +1,28 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-stock></app-stock>
+<!Doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="button-row">
+    <mat-toolbar>
+      <mat-toolbar-row color="primary">
+        <button mat-button (click)="goHome()">หน้าแรก</button>
+        <button mat-button (click)="goStock()">ระบบสต๊อก</button>
+        <button mat-button (click)="goRegister()">สมัครสมาชิก</button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+  </header>
+  <section>
+    <nav></nav>
+    <article>
+      <router-outlet></router-outlet>
+    </article>
+  </section>
+</body>
+</html>

@@ -18,10 +18,10 @@ public class Product{
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="product_seq")      
 	@Column(name="Prdouct_id",unique = true, nullable = true)
 	private @NonNull Long id;
-    private @NonNull String Name;
-    private String Detail;
-    private String ImgUrl;
-    private double Price;
+    private @NonNull String productName;
+    private String productDetail;
+    private String productImgUrl;
+    private double productPrice;
 
     // Product --> Stock
     @OneToMany(

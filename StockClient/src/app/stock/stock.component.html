@@ -1,35 +1,4 @@
-<!doctype html>
-<html lang="th">
-<head>
-  <meta charset="utf-8">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-
-<body>
-<header>
-  <div class="button-row">
-    <mat-toolbar>
-      <mat-toolbar-row color="primary">
-        <button mat-button>หน้าแรก</button>
-        <button mat-button>ระบบสต๊อก</button>
-
-      </mat-toolbar-row>
-    </mat-toolbar>
-  </div>
-</header>
-
 <section>
-  <nav>
-    <div class="left-menu">
-      <mat-toolbar style="background-color: honeydew">
-        <mat-toolbar-row>
-          <button mat-button>หน้าหลักของระบบ</button>
-        </mat-toolbar-row>
-      </mat-toolbar>
-
-    </div>
-  </nav>
-
   <article>
       <mat-accordion>
         <mat-expansion-panel>
@@ -44,17 +13,17 @@
                     <table class="add-new-product" cellspacing="5">
                         <tr>
                           <mat-form-field class="product-name">
-                            <input matInput name="newProductName" type="text" placeholder="ชื่อสินค้า" [(ngModel)]="newProductName">
+                            <input matInput name="newProductName" type="text" placeholder="ชื่อสินค้า" [(ngModel)]="product.productName">
                           </mat-form-field>
                         </tr>
                         <tr>
                           <mat-form-field class="product-img-url">
-                              <input matInput name="newProductImgUrl" type="text" placeholder="ลิงค์รูปภาพสินค้า" [(ngModel)]="newProductImgUrl">
+                              <input matInput name="newProductImgUrl" type="text" placeholder="ลิงค์รูปภาพสินค้า" [(ngModel)]="product.productImgUrl">
                           </mat-form-field>
                         </tr>
                         <tr>
                           <mat-form-field class="product-price">
-                              <input matInput name="newProductPrice" type="text"  placeholder="ราคา" class="example-right-align" [(ngModel)]="newProductPrice">
+                              <input matInput name="newProductPrice" type="number"  placeholder="ราคา" class="example-right-align" [(ngModel)]="product.productPrice">
                               <span matPrefix>฿&nbsp;</span>
                           </mat-form-field>
                         </tr>
@@ -66,30 +35,37 @@
                                       #autosize="cdkTextareaAutosize"
                                       cdkAutosizeMinRows="2"
                                       cdkAutosizeMaxRows="5"
-                                      name="newProductDetail" [(ngModel)]="newProductDetail"></textarea>
+                                      name="newProductDetail" [(ngModel)]="product.productDetail"></textarea>
                           </mat-form-field>
                         </tr>
                         <tr>
-                          <button mat-raised-button color="primary" (click)="addNewProduct()">ยืนยัน</button>
+                          <button mat-raised-button color="primary" (click)="addNewProduct(product)">ยืนยัน</button>
                         </tr>
                       </table>
                   </mat-tab>
         
                   <mat-tab label="แก้ไขข้อมูลสินค้า">
                     <table class="edit-product" cellspacing="5">
+                        <mat-form-field>
+                            <mat-select [(ngModel)]="product.editProductId" placeholder="เลือกสินค้า">
+                              <mat-option *ngFor="let products of products" [value]="products.id">
+                                {{products.productName}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
                       <tr>
-                        <mat-form-field class="product-name">
-                          <input matInput placeholder="ชื่อสินค้า">
+                        <mat-form-field class="product-new-name">
+                          <input matInput name="product.editNewProductName" placeholder="ชื่อสินค้าใหม่" [(ngModel)]="product.editNewProductName">
                         </mat-form-field>
                       </tr>
                       <tr>
                           <mat-form-field class="product-img-url">
-                              <input matInput placeholder="ลิงค์รูปภาพสินค้า">
+                              <input matInput name="product.editProductImgUrl" placeholder="ลิงค์รูปภาพสินค้า" [(ngModel)]="product.editProductImgUrl">
                           </mat-form-field>
                       </tr>
                       <tr>
                           <mat-form-field class="product-price">
-                              <input matInput placeholder="ราคา" class="example-right-align">
+                              <input matInput name="product.editProductPrice" placeholder="ราคา" class="example-right-align" [(ngModel)]="product.editProductPrice">
                               <span matPrefix>฿&nbsp;</span>
                           </mat-form-field>
                       </tr>
@@ -100,11 +76,12 @@
                                     cdkTextareaAutosize
                                     #autosize="cdkTextareaAutosize"
                                     cdkAutosizeMinRows="2"
-                                    cdkAutosizeMaxRows="5"></textarea>
+                                    cdkAutosizeMaxRows="5"
+                                    name="editProductDetail" [(ngModel)]="product.editProductDetail"></textarea>
                         </mat-form-field>
                       </tr>
                       <tr>
-                        <button mat-raised-button color="primary">ยืนยัน</button>
+                        <button mat-raised-button color="primary" (click)="editProduct(product)">ยืนยัน</button>
                       </tr>
                     </table>
                   </mat-tab>
@@ -233,11 +210,9 @@
                     </div>
                 </mat-tab>
               </mat-tab-group>
-      
           </div>
-
         </mat-expansion-panel>
-
+      
         <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -247,9 +222,22 @@
             <div class="order-product">
                 <table class="order-product" cellspacing="5">
                   <tr>
-                    <mat-form-field class="product-name">
-                      <input matInput name="ordProductId" placeholder="ชื่อสินค้า" [(ngModel)]="ordProductId">
+                    <mat-form-field class="preorder-id">
+                      <mat-select [(ngModel)]="ordPreorderIdSelect" placeholder="หมายเลขใบสั่งจอง">
+                        <mat-option *ngFor="let preorders of preorders" [value]="preorders.preorderId">
+                          {{preorders.preorderId}}
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
+                  </tr>
+                  <tr>
+                       <mat-form-field class="product-name">
+                         <mat-select [(ngModel)]="ordProductName" placeholder="สินค้า">
+                          <mat-option *ngFor="let products of products" [value]="products.id">
+                            {{products.productName}}
+                          </mat-option>
+                        </mat-select>
+                       </mat-form-field>
                   </tr>
               
                   <tr>
@@ -264,9 +252,9 @@
                   </tr>
                   <tr>
                     <mat-form-field>
-                      <mat-select placeholder="เมือง">
-                        <mat-option *ngFor="let CountryList of WCList" [value]="CountryList.value">
-                          {{CountryList.viewValue}}
+                      <mat-select [(ngModel)]="ordWarehouseSelect" placeholder="คลังสินค้าที่จัดเก็บ">
+                        <mat-option *ngFor="let AboardWarehouseList of AboardWarehouseLists" [value]="AboardWarehouseList.warehouseId">
+                          {{AboardWarehouseList.warehouseName}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -283,5 +271,3 @@
 
   </article>
 </section>
-</body>
-</html>

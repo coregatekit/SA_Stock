@@ -7,13 +7,12 @@ import org.springframework.context.annotation.Bean;
 import java.util.stream.Stream;
 
 import sut.sa.g21.Entity.*;
-import sut.sa.g21.Repository.*;
-import sut.sa.g21.Entity.Product;
-import sut.sa.g21.Entity.Warehouse;
 import sut.sa.g21.Repository.OrderProductRepository;
 import sut.sa.g21.Repository.ProductRepository;
 import sut.sa.g21.Repository.StockRepository;
 import sut.sa.g21.Repository.WarehouseRepository;
+import sut.sa.g21.Repository.GenderRepository;
+import sut.sa.g21.Repository.UserRepository;
 
 
 @SpringBootApplication
@@ -50,29 +49,46 @@ public class StockDbApplication {
 
 	@Bean
 	ApplicationRunner init(ProductRepository productRepository, StockRepository stockRepository,
-						   WarehouseRepository warehouseRepository, OrderProductRepository orderProductRepository) {
+						   WarehouseRepository warehouseRepository, OrderProductRepository orderProductRepository,
+						   GenderRepository genderRepository, UserRepository userRepository) {
+
 		return args -> {
 			for(int i = 0; i < productList.length; i++) {
 				Product goods = new Product();
-				goods.setName(productList[i]);
-				goods.setDetail(detailProduc[i]);
-				goods.setImgUrl(imgUrl[i]);
-				goods.setPrice(productPrice[i]);
+				goods.setProductName(productList[i]);
+				goods.setProductDetail(detailProduc[i]);
+				goods.setProductImgUrl(imgUrl[i]);
+				goods.setProductPrice(productPrice[i]);
 				productRepository.save(goods);
 			}
 			for(int i = 0; i < WarehouseCodeList.length; i++) {
 				Warehouse warehouse = new Warehouse();
-				warehouse.setName(WarehouseNameList[i]);
-				warehouse.setCode(WarehouseCodeList[i]);
+				warehouse.setWarehouseName(WarehouseNameList[i]);
+				warehouse.setWarehouseCode(WarehouseCodeList[i]);
 				if(i < 5) {
-					warehouse.setAddress("THAI");
+					warehouse.setWarehouseAddress("THAI");
 				} else {
-					warehouse.setAddress("FOREIGN");
+					warehouse.setWarehouseAddress("FOREIGN");
 				}
 				warehouseRepository.save(warehouse);
 			}
 			productRepository.findAll().forEach(System.out::println);
 			warehouseRepository.findAll().forEach(System.out::println);
+
+			Gender genderM = new Gender("ชาย");
+			Gender genderF = new Gender("หญิง");
+			genderRepository.save(genderM);
+			genderRepository.save(genderF);
+
+			User newUser = new User(1);
+			newUser.setUserUsername("joekim_jj");
+			newUser.setUserPassword("1234");
+			newUser.setUserFirstName("Joe");
+			newUser.setUserLastName("Kim");
+			newUser.setUserEmail("joesm.genie@gmail.com");
+			newUser.setUserTelephone("0647951994");
+			userRepository.save(newUser);
+			
 		};
 	}
 }

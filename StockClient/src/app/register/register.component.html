@@ -1,0 +1,64 @@
+<section>
+  <article>
+    <div class="Register-form">
+      <mat-form-field class="full-width">
+        <input matInput  disabled value="ระบบสมัครสมาชิก">
+      </mat-form-field>
+      <table class="full-width" cellspacing="0">
+        <tr>
+          <mat-form-field class="full-width">
+            <input matInput type="text"  placeholder="Username" [(ngModel)]="regUsername">
+          </mat-form-field>
+        </tr>
+        <tr>
+          <mat-form-field class="full-width">
+            <input matInput type="password"  placeholder="Password" [(ngModel)]="regPassword">
+          </mat-form-field>
+        </tr>
+        <tr>
+          <mat-form-field class="full-width">
+            <input matInput type="password"  placeholder="Confirm Password" [(ngModel)]="regRePassword">
+          </mat-form-field>
+        </tr>
+      </table>
+      <mat-form-field class="full-width">
+        <input matInput  disabled value="ข้อมูลส่วนตัว">
+      </mat-form-field>
+      <table class="full-width" cellspacing="0">
+        <tr>
+          <mat-form-field class="full-width">
+            <input matInput type="text"  placeholder="ชื่อ" [(ngModel)]="regFirstName">
+          </mat-form-field>
+        </tr>
+        <tr>
+          <mat-form-field class="full-width">
+            <input matInput type="text"  placeholder="นามสกุล" [(ngModel)]="regLastName">
+          </mat-form-field>
+        </tr>
+        <tr>
+          <mat-form-field class="quarter-width">
+            <mat-select [(ngModel)]="regGender" placeholder="เพศ">
+              <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                {{gender.genderName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </tr>
+        <tr>
+         <mat-form-field class="full-width">
+           <input type="text" matInput placeholder="E-mail" [(ngModel)]="regEmail">
+         </mat-form-field>
+        </tr>
+        <tr>
+          <mat-form-field class="full-width">
+            <span matPrefix>+66 &nbsp;</span>
+            <input type="tel" matInput placeholder="เบอรโทรศัพท์" [(ngModel)]="regTelephone">
+          </mat-form-field>
+        </tr>
+        <tr>
+          <button mat-raised-button color="primary" (click)="regAccount()">ยืนยัน</button>
+        </tr>
+      </table>
+    </div>
+  </article>
+</section>

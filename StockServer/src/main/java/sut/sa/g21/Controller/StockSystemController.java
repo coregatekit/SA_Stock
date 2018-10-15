@@ -13,12 +13,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import sut.sa.g21.Entity.*;
@@ -54,37 +58,31 @@ public class StockSystemController {
     public Optional<Product> takeinProductByid(@PathVariable Long productId ) {
         return productRepository.findById(productId);
     }
-    /*
-    @PostMapping("/AddProduct")
-    public void addProduct(@RequestBody String dataProduct) throws JsonParseException, IOException {
-        final String decoded = URLDecoder.decode(dataProduct, "UTF-8");
-        dataProduct = decoded;
-        Product newProduct = new Product();
-        if (dataProduct.charAt(0) == '{') {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode actualObj = mapper.readTree(dataProduct);
-
-            JsonNode jsonNode = actualObj.get("productName");
-            newProduct.setProductName(jsonNode.textValue());
-            jsonNode = actualObj.get("productDetail");
-            newProduct.setProductDetail(jsonNode.textValue());
-            jsonNode = actualObj.get("productImgUrl");
-            newProduct.setProductImgUrl(jsonNode.textValue());
-            jsonNode = actualObj.get("productProce");
-            newProduct.setProductPrice(jsonNode.doubleValue());
-            productRepository.save(newProduct);
-        }
-    }
-    */
-    // ทดสอบโดย ใช้คำสั่ง curl -iX POST http://localhost:8080/Product/addProduct/AWM/AWM/AWM/5900
     @PostMapping("/Products/addProduct/{productName}/{productDetail}/{productImgUrl}/{productPrice}")
-    public Product addProduct(@PathVariable String productName, @PathVariable String productDetail, @PathVariable String productImgUrl, @PathVariable double productPrice) {
+    public Product addProduct(@PathVariable String productName, @PathVariable String productDetail, @RequestBody String productImgUrl, @PathVariable double productPrice) {
        Product newProduct = new Product();
-       newProduct.setName(productName);
-       newProduct.setDetail(productDetail);
-       newProduct.setImgUrl(productImgUrl);
-       newProduct.setPrice(productPrice);
+       newProduct.setProductName(productName);
+       newProduct.setProductDetail(productDetail);
+       newProduct.setProductImgUrl(productImgUrl);
+       newProduct.setProductPrice(productPrice);
        return productRepository.save(newProduct);
+    }
+    @RequestMapping(value = "/Products/addProduct", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Product addProduct2(@RequestBody Product newProduct) {
+       return productRepository.save(newProduct);
+    }    
+    @PutMapping("/Products/editProduct/{productId}/{newProductName}/{productDetail}/{productImgUrl}/{productPrice}")
+    public Product editProduct(@PathVariable Long productId, @PathVariable String newProductName, @PathVariable String productDetail, @RequestBody String productImgUrl, @PathVariable double productPrice) {
+        Product editProduct =  productRepository.findById(productId).get();
+        editProduct.setProductName(newProductName);
+        editProduct.setProductDetail(productDetail);
+        editProduct.setProductImgUrl(productImgUrl);
+        editProduct.setProductPrice(productPrice);
+        return productRepository.save(editProduct);
+    }
+    @RequestMapping(value = "/Products/editProduct", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Product editProduct2(@RequestBody Product editProduct) {
+       return productRepository.save(editProduct);
     }
 
     // Warehouse
@@ -143,5 +141,6 @@ public class StockSystemController {
         
     }
     */
+    
     
 }

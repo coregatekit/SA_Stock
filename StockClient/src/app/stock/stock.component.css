@@ -34,13 +34,6 @@ a:link {
     color: blue;
   }
   
-  nav {
-    float: left;
-    width: 15%;
-    height: 800px;
-    padding: 0px;
-  }
-  app.component.css
   ul {
     list-style-type: none;
     margin: 0;
@@ -65,7 +58,6 @@ a:link {
     padding: 20px;
     width: 80%;
     background-color: #f1f1f1;
-    height: 800px;
   }
   
   section:after {

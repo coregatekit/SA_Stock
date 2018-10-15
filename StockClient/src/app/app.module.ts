@@ -11,21 +11,24 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { StockComponent } from './stock/stock.component';
 import { StockService } from './shared/stock/stock.service';
-
+import { RegisterComponent } from './register/register.component';
+import { RegisterService } from './shared/register/register.service';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/app', pathMatch: 'full' }
+  {path: 'Stock', component: StockComponent},
+  {path: 'Register', component: RegisterComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    StockComponent
+    StockComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ const appRoutes: Routes = [
     MatExpansionModule,
     MatTabsModule
   ],
-  providers: [StockService],
+  providers: [StockService, RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
