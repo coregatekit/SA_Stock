@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
     RePassword: '',
     FirstName: '',
     LastName: '',
+    Address: '',
     Email: '',
     Telephone: '',
     Gender: null
@@ -48,7 +49,7 @@ export class RegisterComponent implements OnInit {
     if (this.reg.Password != this.reg.RePassword) {
       alert("กรุณากรอกรหัสผ่านให้ตรงกัน");
     } else if (this.reg.Username == '' || this.reg.Password == '' || this.reg.RePassword == '' 
-    || this.reg.FirstName == '' || this.reg.LastName == '' || this.reg.Email == '' || this.reg.Telephone == '' ) {
+    || this.reg.FirstName == '' || this.reg.LastName == '' || this.reg.Address == '' ||  this.reg.Email == '' || this.reg.Telephone == '' ) {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
     } else if (this.reg.Gender == null) {
       alert("กรุณากรอกเพศ")
@@ -62,6 +63,7 @@ export class RegisterComponent implements OnInit {
         this.reg.RePassword = '';
         this.reg.FirstName = '';
         this.reg.LastName = '';
+        this.reg.Address = '';
         this.reg.Gender = '';
         this.reg.Email = '';
         this.reg.Telephone = '';

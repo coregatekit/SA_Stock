@@ -47,7 +47,7 @@
                   <mat-tab label="แก้ไขข้อมูลสินค้า">
                     <table class="edit-product" cellspacing="5">
                         <mat-form-field>
-                            <mat-select [(ngModel)]="editProductData.Product_id" placeholder="เลือกสินค้า">
+                            <mat-select [(ngModel)]="editProductData.id" placeholder="เลือกสินค้า">
                               <mat-option *ngFor="let products of products" [value]="products.id">
                                 {{products.productName}}
                               </mat-option>

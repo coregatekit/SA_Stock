@@ -39,6 +39,12 @@ export class StockComponent implements OnInit {
   newProductImgUrl: string = '';
   newProductPrice: number;
 
+  editProductId: number;
+  editNewProductName: string = '';
+  editProductDetail: string = '';
+  editProductImgUrl: string = '';
+  editProductPrice: number;
+
   ThaiWarehouseLists: Array<any>;
   AboardWarehouseLists: Array<any>;
 
@@ -51,11 +57,11 @@ export class StockComponent implements OnInit {
     productPrice: ''
   };
   editProductData: any = {
-    Product_id: '',
+    id: '',
     productName: '',
     productImgUrl: '',
     productDetail: '',
-    productPrice: null
+    productPrice: ''
   };
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -156,6 +162,7 @@ export class StockComponent implements OnInit {
         this.newProductDetail = '';
         this.newProductImgUrl = '';
         this.newProductPrice = null;
+        alert('Add new product succesfull!');
       },
       error => {
         console.log('Error! cannot add new product!', error);
@@ -166,37 +173,56 @@ export class StockComponent implements OnInit {
     console.log(product);
     this.stockService.addProduct2(product).subscribe(
       data => {
+        alert('Add new product succesfull!');
         console.log('Add new product succesfull!', data);
         this.getProductList();
-        this.newProductName = '';
-        this.newProductDetail = '';
-        this.newProductImgUrl = '';
-        this.newProductPrice = null;
+        this.product.productName = '';
+        this.product.productDetail = '';
+        this.product.productImgUrl = '';
+        this.product.productPrice = '';
       },
       error => {
         console.log('Error! cannot add new product!', error);
       }
     );
   }
-  editProduct2(editProductData: NgForm) {
-    console.log(editProductData);
-    alert(editProductData);
-    if(this.editProductData.productName === '' || this.editProductData.productDetail === '' ||
-     this.editProductData.editProductImgUrl === '' || this.editProductData.productPrice === 0) {
-      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+
+  editProduct() {
+    console.log('editProduct');
+    alert(this.editProductId);
+    if(this.editNewProductName == '' || this.editProductDetail == '' || this.editProductImgUrl == '' || this.editProductPrice == 0) {
+      alert('กรอกข้อมูลไม่ครบถ้วน กรุณากรอกข้อมูลใหม่');
     } else {
-      this.stockService.editProduct2(editProductData).subscribe(
+      this.stockService.editProduct(this.editProductId, this.editNewProductName, this.editProductDetail, this.editProductImgUrl, this.editProductPrice).subscribe(
         data => {
-          console.log('Edit product succesfull!', data);
+          console.log("Edit product succesfull!", data);
           this.getProductList();
-          this.editProductData.Product_id = '';
-          this.editProductData.productName = '';
-          this.editProductData.productImgUrl = '';
-          this.editProductData.productDetail = '';
-          this.editProductData.productPrice = null;
+          this.editNewProductName = '';
+          this.editProductDetail = '';
+          this.editProductImgUrl = '';
+          this.editProductPrice = null;
         }
       );
     }
   }
 
+  editProduct2(editProductData: NgForm) {
+    console.log(editProductData);
+    if(this.editProductData.productName === '' || this.editProductData.productDetail === '' ||
+     this.editProductData.editProductImgUrl === '' || this.editProductData.productPrice === '') {
+      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+    } else {
+      this.stockService.editProduct2(editProductData).subscribe(
+        data => {
+          alert('Edit product succesfull!');
+          this.getProductList();
+          this.editProductData.id = '';
+          this.editProductData.productName = '';
+          this.editProductData.productImgUrl = '';
+          this.editProductData.productDetail = '';
+          this.editProductData.productPrice = '';
+        }
+      );
+    }
+  }
 }

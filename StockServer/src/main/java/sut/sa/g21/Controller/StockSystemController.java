@@ -78,7 +78,7 @@ public class StockSystemController {
        return productRepository.save(newProduct);
     }
     @PutMapping("/Products/editProduct/{productId}/{newProductName}/{productDetail}/{productImgUrl}/{productPrice}")
-    public Product editProduct(@PathVariable Long productId, @PathVariable String newProductName, @PathVariable String productDetail, @RequestBody String productImgUrl, @PathVariable double productPrice) {
+    public Product editProduct(@PathVariable Long productId, @PathVariable String newProductName, @PathVariable String productDetail, @PathVariable String productImgUrl, @PathVariable double productPrice) {
         Product editProduct =  productRepository.findById(productId).get();
         editProduct.setProductName(newProductName);
         editProduct.setProductDetail(productDetail);
@@ -87,13 +87,13 @@ public class StockSystemController {
         return productRepository.save(editProduct);
     }
     
-    @RequestMapping("/Products/editProduct2")
+    @PutMapping("/Products/editProduct2")
     public Product editProduct2(@RequestBody() Map<String,Object> body) {
-        Optional<Product> editProduct = productRepository.findById(Long.valueOf(body.get("editProductId").toString()));
-        editProduct.get().setProductName(body.get("editNewProductName").toString());
-        editProduct.get().setProductImgUrl(body.get("editProductImgUrl").toString());
-        editProduct.get().setProductPrice(Double.valueOf(body.get("editProductPrice").toString()));
-        editProduct.get().setProductDetail(body.get("editProductDetail").toString());
+        Optional<Product> editProduct = productRepository.findById(Long.valueOf(body.get("id").toString()));
+        editProduct.get().setProductName(body.get("productName").toString());
+        editProduct.get().setProductImgUrl(body.get("productImgUrl").toString());
+        editProduct.get().setProductPrice(Double.valueOf(body.get("productPrice").toString()));
+        editProduct.get().setProductDetail(body.get("productDetail").toString());
        return productRepository.save(editProduct.get());
     }
     

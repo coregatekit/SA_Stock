@@ -36,6 +36,7 @@ public class UserController {
         regis.setUserPassword(body.get("Password").toString());
         regis.setUserFirstName(body.get("FirstName").toString());
         regis.setUserLastName(body.get("LastName").toString());
+        regis.setUserAddress(body.get("Address").toString());
         regis.setUserEmail(body.get("Email").toString());
         regis.setUserTelephone(body.get("Telephone").toString());
         

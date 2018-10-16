@@ -24,6 +24,7 @@ public class User{
     private @NonNull String userLastName;
     private @NonNull String userEmail;
     private @NonNull String userTelephone;
+    private @NonNull String userAddress;
 
     @ManyToOne()   
     @JoinColumn(name= "Gender_id")     

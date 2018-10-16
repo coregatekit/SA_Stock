@@ -50,15 +50,19 @@ export class StockService {
     return result;
   }
 
-  public editProduct(product: Form): Observable<any> {
-    let result;
-    result = this.http.put(this.API + '/Products/editProduct', product);
-    return result;
+  public editProduct(editProductId:number, editNewProductName:string, editProductDetail:string, editProductImgUrl:string, editProductPrice:number):Observable<any> {
+    return this.http.put(this.API + '/Products/editProduct/' + editProductId + '/' + editNewProductName + '/' + editProductDetail + '/' + editProductImgUrl + '/' + editProductPrice, {
+      'editProductName': editProductId,
+      'editNewProductName': editNewProductName,
+      'editProductDetail': editProductDetail,
+      'editProductImgUrl': editProductImgUrl,
+      'editProductPrice': editProductPrice
+    });
   }
 
-  public editProduct2(product: Form): Observable<any> {
+  public editProduct2(editProductData: Form): Observable<any> {
     let result;
-    result = this.http.put(this.API + '/Products/editProduct2', product);
+    result = this.http.put(this.API + '/Products/editProduct2', editProductData);
     return result;
   }
   /*
