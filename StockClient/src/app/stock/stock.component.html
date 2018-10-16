@@ -39,7 +39,7 @@
                           </mat-form-field>
                         </tr>
                         <tr>
-                          <button mat-raised-button color="primary" (click)="addNewProduct(product)">ยืนยัน</button>
+                          <button mat-raised-button color="primary" (click)="addProduct2(product)">ยืนยัน</button>
                         </tr>
                       </table>
                   </mat-tab>
@@ -98,117 +98,61 @@
 
           <div class="manage-warehouse">
               <mat-tab-group>
-                <mat-tab label="คลังในประเทศ">
+                <mat-tab label="รายการสั่งซื้อสินค้า">
                   <br>
-                  <mat-form-field>
-                      <mat-select placeholder="สาขาคลังสินค้า">
-                        <mat-option *ngFor="let ThaiWarehouse of warehouseTH" [value]="ThaiWarehouse.warehouseName">
-                          {{ThaiWarehouse.warehouseName}}
+                  <div class="search" style="align: center">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ค้นหา">
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <table mat-table>
+                      <!-- รหัสสินค้า Column -->
+                      <ng-container matColumnDef="orderproductId">
+                          <th mat-header-cell *matHeaderCellDef> รหัสสินค้า </th>
+                          <td ma-cell *matCellDef="let element"> {{element.orderproductId}} </td>
+                        </ng-container>
+    
+                        <!-- ชื่อสินค้า Column -->
+                        <ng-container matColumnDef="preorderId">
+                          <th mat-header-cell *matHeaderCellDef> ชื่อสินค้า </th>
+                          <td mat-cell *matCellDef="let element"> {{element.preorderId}} </td>
+                        </ng-container>
+                
+                        <!-- หมวดหมู่ Column -->
+                        <ng-container matColumnDef="amount">
+                          <th mat-header-cell *matHeaderCellDef> หมวดหมู่ </th>
+                          <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                        </ng-container>
+                
+                        <!-- ประเทศ Column -->
+                        <ng-container matColumnDef="totalPrice">
+                          <th mat-header-cell *matHeaderCellDef> ประเทศ </th>
+                          <td mat-cell *matCellDef="let element"> {{element.totalPrice}} </td>
+                        </ng-container>
+    
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </table>
+                </mat-tab>
+
+                <mat-tab label="จัดการสินค้า">
+                  <table class="manage-product" cellspacing="5">
+                    <mat-form-field class="preorder-id">
+                      <mat-select [(ngModel)]="ordPreorderIdSelect" placeholder="หมายเลขใบสั่งจอง">
+                        <mat-option *ngFor="let preorders of preorders" [value]="preorders.preorderId">
+                          {{preorders.preorderId}}
                         </mat-option>
                       </mat-select>
-                  </mat-form-field>
-                  <br>
-                  <table id="tb-th-warehouse">
-                        <tr>
-                          <th>สินค้าในคลังสาขา</th>
-                          <th>สินค้าที่จัดส่งลูกค้า</th>
-                        </tr>
-                        <tr>
-                          <td>N/A</td>
-                          <td>N/A</td>
-                        </tr>
-                  </table>
-
-                  <br><h3>กระจายสินค้า</h3>
-                  <div id="distribute-product">
-                      <mat-form-field>
-                        <mat-select placeholder="สาขาต้นทาง">
-                          <mat-option *ngFor="let WHTH of th_warehouse" [value]="WHTH.value">
-                            {{WHTH.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <br>
-                      <mat-form-field>
-                        <mat-select placeholder="สาขาปลายทาง">
-                          <mat-option *ngFor="let WHTH of th_warehouse" [value]="WHTH.value">
-                            {{WHTH.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <br>
-                      <mat-form-field>
-                        <mat-select placeholder="สินค้า">
-                          <mat-option *ngFor="let Products of products_list" [value]="Products.value">
-                            {{Products.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <br>
-                      <form class="example-form">
-                        <mat-form-field class="goods-amount">
-                        <input matInput placeholder="จำนวน">
-                      </mat-form-field>
-                      </form>
-                      <br>
-                      <button mat-raised-button color="primary">ยืนยัน</button>
-                    </div>
-                </mat-tab>
-        
-                <mat-tab label="คลังต่างประเทศ">
-                    <mat-form-field>
-                        <mat-select placeholder="สาขาคลังสินค้า">
-                          <mat-option *ngFor="let WHAB of ab_warehouse" [value]="WHAB.value">
-                            {{WHAB.viewValue}}
-                          </mat-option>
-                        </mat-select>
                     </mat-form-field>
-                  <br>
-                  <table id="tb-ab-warhouse" >
+                    
                     <tr>
-                      <th>สินค้าคลังต่างประเทศ</th>
-                      <th>สินค้าที่กำลังจัดซื้อในต่างประเทศ</th>
-                    </tr>
-                    <tr>
-                      <td>N/A</td>
-                      <td>N/A</td>
+                      <button mat-raised-button color="primary" (click)="editProduct(product)">ยืนยัน</button>
                     </tr>
                   </table>
-                  <br><h3>ส่งสินค้ากลับไทย</h3>
-                  <div id="send-back-product">
-                      <mat-form-field>
-                        <mat-select placeholder="สาขาต้นทาง">
-                          <mat-option *ngFor="let WHAB of ab_warehouse" [value]="WHAB.value">
-                            {{WHAB.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <br>
-                      <mat-form-field>
-                        <mat-select placeholder="สาขาปลายทาง">
-                          <mat-option *ngFor="let FinalDestination of final_destination" [value]="FinalDestination.value">
-                            {{FinalDestination.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <br>
-                      <mat-form-field>
-                        <mat-select placeholder="สินค้า">
-                          <mat-option *ngFor="let Products of products_list" [value]="Products.value">
-                            {{Products.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <br>
-                      <form class="example-form">
-                        <mat-form-field class="goods-amount">
-                          <input matInput placeholder="จำนวน">
-                        </mat-form-field>
-                      </form>
-                      <br>
-                      <button mat-raised-button color="primary">ยืนยัน</button>
-                    </div>
                 </mat-tab>
+
               </mat-tab-group>
           </div>
         </mat-expansion-panel>

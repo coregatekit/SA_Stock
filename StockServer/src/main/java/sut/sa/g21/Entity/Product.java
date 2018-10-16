@@ -21,7 +21,7 @@ public class Product{
     private @NonNull String productName;
     private String productDetail;
     private String productImgUrl;
-    private double productPrice;
+    private Double productPrice;
 
     // Product --> Stock
     @OneToMany(
@@ -64,18 +64,18 @@ public class Product{
     }
     */
 
-    /*
+    
     public void setProductName(String Name) {
-        this.Name = Name;
+        this.productName = Name;
     }
     public void setProductDetail(String Detail) {
-        this.Detail = Detail;
+        this.productDetail = Detail;
     }
     public void setProductImgUrl(String ImgUrl) {
-        this.ImgUrl = ImgUrl;
+        this.productImgUrl = ImgUrl;
     }
-    public void setProductPrice(double Price) {
-        this.Price = Price;
+    public void setProductPrice(Double Price) {
+        this.productPrice = Price;
     }
-    */
+    
 }

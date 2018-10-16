@@ -1,13 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { StockService } from '../shared/stock/stock.service';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { NgForm } from '@angular/forms';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 export interface WarehouseList {
   warehouseId;
   warehouseAddress;
   warehouseCode;
   warehouseName;
+}
+export interface OrderproductList {
+  orderproductId: number;
+  preorderId: number;
+  amount: number;
+  totalPrice: number;
 }
 @Component({
   selector: 'app-stock',
@@ -37,9 +43,13 @@ export class StockComponent implements OnInit {
   editProductImgUrl: string = '';
   editProductPrice: number;
 
-  ThaiWarehouseList: Array<any>;
+  ThaiWarehouseLists: Array<any>;
   AboardWarehouseLists: Array<any>;
 
+  
+  displayedColumns: string[] = ['orderproductId', 'preorderId', 'amount', 'totalPrice'];
+  dataSource: MatTableDataSource<OrderproductList>;
+  
   product: any = {
     productName: '',
     productImgUrl: '',
@@ -47,9 +57,8 @@ export class StockComponent implements OnInit {
     productPrice: ''
   };
 
-  @ViewChild(MatPaginator) thaiWarehousePaginator: MatPaginator;
-  @ViewChild(MatPaginator) aboardWarehousePaginator: MatPaginator;
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private stockService: StockService) { }
   ngOnInit() {
@@ -68,7 +77,18 @@ export class StockComponent implements OnInit {
   getOrderProductList() {
     this.stockService.getOrderProduct().subscribe(data => {
       this.orderProducts = data;
+      const orderProductList: OrderproductList[] = [];
       console.log(this.orderProducts);
+      for (let index = 0; index < this.orderProducts["length"]; index++) {
+        orderProductList.push({
+          orderproductId: this.orderProducts[index].orderproductId,
+          preorderId: this.orderProducts[index].preorderId,
+          amount: this.orderProducts[index].amount,
+          totalPrice: this.orderProducts[index].totalPrice,
+        });
+        }
+        this.dataSource = new MatTableDataSource(orderProductList);
+        this.dataSource.paginator = this.paginator;
     });
   }
   getProductList() {
@@ -100,7 +120,7 @@ export class StockComponent implements OnInit {
           });
         }
       }
-      this.ThaiWarehouseList = ThaiWarehouseLists;
+      this.ThaiWarehouseLists = ThaiWarehouseLists;
       this.AboardWarehouseLists = AboardWarehouseLists;
       console.log(ThaiWarehouseLists);
       console.log(AboardWarehouseLists);
@@ -128,6 +148,22 @@ export class StockComponent implements OnInit {
   addNewProduct(product: NgForm) {
     console.log(product);
     this.stockService.addNewProduct(product).subscribe(
+      data => {
+        console.log('Add new product succesfull!', data);
+        this.getProductList();
+        this.newProductName = '';
+        this.newProductDetail = '';
+        this.newProductImgUrl = '';
+        this.newProductPrice = null;
+      },
+      error => {
+        console.log('Error! cannot add new product!', error);
+      }
+    );
+  }
+  addProduct2(product: NgForm) {
+    console.log(product);
+    this.stockService.addProduct2(product).subscribe(
       data => {
         console.log('Add new product succesfull!', data);
         this.getProductList();

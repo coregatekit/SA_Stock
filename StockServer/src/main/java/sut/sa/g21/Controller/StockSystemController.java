@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.*;
 
 import javax.persistence.criteria.Order;
 
@@ -67,10 +68,15 @@ public class StockSystemController {
        newProduct.setProductPrice(productPrice);
        return productRepository.save(newProduct);
     }
-    @RequestMapping(value = "/Products/addProduct", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Product addProduct2(@RequestBody Product newProduct) {
+    @PostMapping("/Products/addProduct2/")
+    public Product addProduct2(@RequestBody() Map<String,Object> body) {
+       Product newProduct = new Product();
+       newProduct.setProductName(body.get("productName").toString());
+       newProduct.setProductDetail(body.get("productDetail").toString());
+       newProduct.setProductImgUrl(body.get("productImgUrl").toString());
+       newProduct.setProductPrice(Double.valueOf(body.get("productPrice").toString()));
        return productRepository.save(newProduct);
-    }    
+    }
     @PutMapping("/Products/editProduct/{productId}/{newProductName}/{productDetail}/{productImgUrl}/{productPrice}")
     public Product editProduct(@PathVariable Long productId, @PathVariable String newProductName, @PathVariable String productDetail, @RequestBody String productImgUrl, @PathVariable double productPrice) {
         Product editProduct =  productRepository.findById(productId).get();
@@ -80,11 +86,17 @@ public class StockSystemController {
         editProduct.setProductPrice(productPrice);
         return productRepository.save(editProduct);
     }
-    @RequestMapping(value = "/Products/editProduct", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Product editProduct2(@RequestBody Product editProduct) {
-       return productRepository.save(editProduct);
+    
+    @RequestMapping("/Products/editProduct2")
+    public Product editProduct2(@RequestBody() Map<String,Object> body) {
+        Optional<Product> editProduct = productRepository.findById(Long.valueOf(body.get("editProductId").toString()));
+        editProduct.get().setProductName(body.get("editNewProductName").toString());
+        editProduct.get().setProductImgUrl(body.get("editProductImgUrl").toString());
+        editProduct.get().setProductPrice(Double.valueOf(body.get("editProductPrice").toString()));
+        editProduct.get().setProductDetail(body.get("editProductDetail").toString());
+       return productRepository.save(editProduct.get());
     }
-
+    
     // Warehouse
     @GetMapping("/Warehouses")
     public Collection<Warehouse> warehouses() {

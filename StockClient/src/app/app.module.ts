@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolbarModule, MatPaginatorModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
 
 import { StockComponent } from './stock/stock.component';
 import { StockService } from './shared/stock/stock.service';
@@ -46,7 +47,9 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatSelectModule,
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [StockService, RegisterService],
   bootstrap: [AppComponent]

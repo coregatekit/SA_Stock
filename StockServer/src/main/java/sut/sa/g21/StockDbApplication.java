@@ -31,7 +31,7 @@ public class StockDbApplication {
 		"https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/images/car-reviews/first-drives/legacy/mustang-wc-3966.jpg?itok=5fOhpOXz",
 		"https://cdn.shopify.com/s/files/1/0747/3829/products/mQ0326_1024x1024.jpeg?v=1485014085"
 	};
-	double productPrice[] = {599.0, 650.0, 789.0, 669.0, 889.0, 999.0, 556.0};
+	double productPrice[] = {2000000.0, 1500000.0, 35000000.0, 50000000.0, 18900000.0, 8900000.0, 15390000.0};
 
 	String WarehouseNameList[] = {
 		"เชียงใหม่", "ปทุมธานี", "นครราชสีมา", "ชลบุรี", "ประจวบคีรีขันธ์",
@@ -46,6 +46,7 @@ public class StockDbApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StockDbApplication.class, args);
 	}
+	
 
 	@Bean
 	ApplicationRunner init(ProductRepository productRepository, StockRepository stockRepository,

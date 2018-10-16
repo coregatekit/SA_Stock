@@ -44,6 +44,12 @@ export class StockService {
     return result;
   }
 
+  public addProduct2(product: Form): Observable<any> {
+    let result;
+    result = this.http.post(this.API + '/Products/addProduct2' , product);
+    return result;
+  }
+
   public editProduct(product: Form): Observable<any> {
     let result;
     result = this.http.put(this.API + '/Products/editProduct', product);
