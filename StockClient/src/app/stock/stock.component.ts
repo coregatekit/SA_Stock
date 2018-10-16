@@ -23,6 +23,7 @@ export interface OrderproductList {
 export class StockComponent implements OnInit {
   productSelect;
   warehouseSelect;
+  disWarehouseSelect;
   ordWarehouseSelect;
   stocks: Array<any>;
   orderProducts: Array<any>;
@@ -37,24 +38,24 @@ export class StockComponent implements OnInit {
   newProductDetail: string = '';
   newProductImgUrl: string = '';
   newProductPrice: number;
-  editProductId: number;
-  editNewProductName: string = '';
-  editProductDetail: string = '';
-  editProductImgUrl: string = '';
-  editProductPrice: number;
 
   ThaiWarehouseLists: Array<any>;
   AboardWarehouseLists: Array<any>;
 
-  
   displayedColumns: string[] = ['orderproductId', 'preorderId', 'amount', 'totalPrice'];
   dataSource: MatTableDataSource<OrderproductList>;
-  
   product: any = {
     productName: '',
     productImgUrl: '',
     productDetail: '',
     productPrice: ''
+  };
+  editProductData: any = {
+    Product_id: '',
+    productName: '',
+    productImgUrl: '',
+    productDetail: '',
+    productPrice: null
   };
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -177,24 +178,25 @@ export class StockComponent implements OnInit {
       }
     );
   }
-  editProduct(product: NgForm) {
-    console.log(product);
-    alert(product);
-    if(this.product.editNewProductName === '' || this.product.editProductDetail === '' ||
-     this.product.editProductImgUrl === '' || this.product.editProductPrice === 0) {
-      alert('กรอกข้อมูลไม่ครบถ้วน กรุณากรอกข้อมูลใหม่');
+  editProduct2(editProductData: NgForm) {
+    console.log(editProductData);
+    alert(editProductData);
+    if(this.editProductData.productName === '' || this.editProductData.productDetail === '' ||
+     this.editProductData.editProductImgUrl === '' || this.editProductData.productPrice === 0) {
+      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
     } else {
-      this.stockService.editProduct(/*this.editProductId, this.editNewProductName,
-         this.editProductDetail, this.editProductImgUrl, this.editProductPrice*/ product).subscribe(
+      this.stockService.editProduct2(editProductData).subscribe(
         data => {
           console.log('Edit product succesfull!', data);
           this.getProductList();
-          this.editNewProductName = '';
-          this.editProductDetail = '';
-          this.editProductImgUrl = '';
-          this.editProductPrice = null;
+          this.editProductData.Product_id = '';
+          this.editProductData.productName = '';
+          this.editProductData.productImgUrl = '';
+          this.editProductData.productDetail = '';
+          this.editProductData.productPrice = null;
         }
       );
     }
   }
+
 }

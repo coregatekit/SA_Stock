@@ -7,17 +7,17 @@
       <table class="full-width" cellspacing="0">
         <tr>
           <mat-form-field class="full-width">
-            <input matInput type="text"  placeholder="Username" [(ngModel)]="regUsername">
+            <input matInput type="text"  placeholder="Username" [(ngModel)]="reg.Username">
           </mat-form-field>
         </tr>
         <tr>
           <mat-form-field class="full-width">
-            <input matInput type="password"  placeholder="Password" [(ngModel)]="regPassword">
+            <input matInput type="password"  placeholder="Password" [(ngModel)]="reg.Password">
           </mat-form-field>
         </tr>
         <tr>
           <mat-form-field class="full-width">
-            <input matInput type="password"  placeholder="Confirm Password" [(ngModel)]="regRePassword">
+            <input matInput type="password"  placeholder="Confirm Password" [(ngModel)]="reg.RePassword">
           </mat-form-field>
         </tr>
       </table>
@@ -27,17 +27,17 @@
       <table class="full-width" cellspacing="0">
         <tr>
           <mat-form-field class="full-width">
-            <input matInput type="text"  placeholder="ชื่อ" [(ngModel)]="regFirstName">
+            <input matInput type="text"  placeholder="ชื่อ" [(ngModel)]="reg.FirstName">
           </mat-form-field>
         </tr>
         <tr>
           <mat-form-field class="full-width">
-            <input matInput type="text"  placeholder="นามสกุล" [(ngModel)]="regLastName">
+            <input matInput type="text"  placeholder="นามสกุล" [(ngModel)]="reg.LastName">
           </mat-form-field>
         </tr>
         <tr>
           <mat-form-field class="quarter-width">
-            <mat-select [(ngModel)]="regGender" placeholder="เพศ">
+            <mat-select [(ngModel)]="reg.Gender" placeholder="เพศ">
               <mat-option *ngFor="let gender of genders" [value]="gender.id">
                 {{gender.genderName}}
               </mat-option>
@@ -46,17 +46,17 @@
         </tr>
         <tr>
          <mat-form-field class="full-width">
-           <input type="text" matInput placeholder="E-mail" [(ngModel)]="regEmail">
+           <input type="text" matInput placeholder="E-mail" [(ngModel)]="reg.Email">
          </mat-form-field>
         </tr>
         <tr>
           <mat-form-field class="full-width">
             <span matPrefix>+66 &nbsp;</span>
-            <input type="tel" matInput placeholder="เบอรโทรศัพท์" [(ngModel)]="regTelephone">
+            <input type="tel" matInput placeholder="เบอรโทรศัพท์" [(ngModel)]="reg.Telephone">
           </mat-form-field>
         </tr>
         <tr>
-          <button mat-raised-button color="primary" (click)="regAccount()">ยืนยัน</button>
+          <button mat-raised-button color="primary" (click)="register(reg)">ยืนยัน</button>
         </tr>
       </table>
     </div>

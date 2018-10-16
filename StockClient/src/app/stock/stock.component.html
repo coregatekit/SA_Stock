@@ -47,7 +47,7 @@
                   <mat-tab label="แก้ไขข้อมูลสินค้า">
                     <table class="edit-product" cellspacing="5">
                         <mat-form-field>
-                            <mat-select [(ngModel)]="product.editProductId" placeholder="เลือกสินค้า">
+                            <mat-select [(ngModel)]="editProductData.Product_id" placeholder="เลือกสินค้า">
                               <mat-option *ngFor="let products of products" [value]="products.id">
                                 {{products.productName}}
                               </mat-option>
@@ -55,17 +55,17 @@
                           </mat-form-field>
                       <tr>
                         <mat-form-field class="product-new-name">
-                          <input matInput name="product.editNewProductName" placeholder="ชื่อสินค้าใหม่" [(ngModel)]="product.editNewProductName">
+                          <input matInput name="product.editNewProductName" placeholder="ชื่อสินค้าใหม่" [(ngModel)]="editProductData.productName">
                         </mat-form-field>
                       </tr>
                       <tr>
                           <mat-form-field class="product-img-url">
-                              <input matInput name="product.editProductImgUrl" placeholder="ลิงค์รูปภาพสินค้า" [(ngModel)]="product.editProductImgUrl">
+                              <input matInput name="product.editProductImgUrl" placeholder="ลิงค์รูปภาพสินค้า" [(ngModel)]="editProductData.productImgUrl">
                           </mat-form-field>
                       </tr>
                       <tr>
                           <mat-form-field class="product-price">
-                              <input matInput name="product.editProductPrice" placeholder="ราคา" class="example-right-align" [(ngModel)]="product.editProductPrice">
+                              <input matInput name="product.editProductPrice" placeholder="ราคา" class="example-right-align" [(ngModel)]="editProductData.productPrice">
                               <span matPrefix>฿&nbsp;</span>
                           </mat-form-field>
                       </tr>
@@ -77,11 +77,11 @@
                                     #autosize="cdkTextareaAutosize"
                                     cdkAutosizeMinRows="2"
                                     cdkAutosizeMaxRows="5"
-                                    name="editProductDetail" [(ngModel)]="product.editProductDetail"></textarea>
+                                    name="editProductDetail" [(ngModel)]="editProductData.productDetail"></textarea>
                         </mat-form-field>
                       </tr>
                       <tr>
-                        <button mat-raised-button color="primary" (click)="editProduct(product)">ยืนยัน</button>
+                        <button mat-raised-button color="primary" (click)="editProduct2(editProductData)">ยืนยัน</button>
                       </tr>
                     </table>
                   </mat-tab>
@@ -139,14 +139,51 @@
 
                 <mat-tab label="จัดการสินค้า">
                   <table class="manage-product" cellspacing="5">
-                    <mat-form-field class="preorder-id">
-                      <mat-select [(ngModel)]="ordPreorderIdSelect" placeholder="หมายเลขใบสั่งจอง">
-                        <mat-option *ngFor="let preorders of preorders" [value]="preorders.preorderId">
-                          {{preorders.preorderId}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                    <tr>
+                      <mat-form-field class="preorder-id">
+                        <mat-select [(ngModel)]="ordPreorderIdSelect" placeholder="หมายเลขใบสั่งจอง">
+                          <mat-option *ngFor="let preorders of preorders" [value]="preorders.preorderId">
+                            {{preorders.preorderId}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </tr>
                     
+                    <tr>
+                      <mat-form-field class="full-width">
+                        <input matInput  disabled value="หมายเลขคำสั่งซื้อ">
+                      </mat-form-field>
+                    </tr>
+                    <tr>
+                      <mat-form-field class="full-width">
+                        <input matInput  disabled value="ชื่อสินค้า">
+                      </mat-form-field>
+                    </tr>
+                    <tr>
+                      <mat-form-field class="full-width">
+                        <input matInput  disabled value="จำนวนสินค้า">
+                      </mat-form-field>
+                    </tr>
+                    <tr>
+                      <mat-form-field class="full-width">
+                        <input matInput  disabled value="ราคา">
+                      </mat-form-field>
+                    </tr>
+                    <tr>
+                      <mat-form-field class="full-width">
+                        <input matInput  disabled value="คลังสินค้าที่จัดเก็บปัจจุบัน">
+                      </mat-form-field>
+                    </tr>
+                    <tr>
+                      <mat-form-field class="warehouse">
+                        <mat-select [(ngModel)]="disWarehouseSelect" placeholder="คลังสินค้าที่จะย้ายไป">
+                          <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
+                            {{warehouse.warehouseName}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </tr>
+
                     <tr>
                       <button mat-raised-button color="primary" (click)="editProduct(product)">ยืนยัน</button>
                     </tr>

@@ -68,7 +68,7 @@ public class StockSystemController {
        newProduct.setProductPrice(productPrice);
        return productRepository.save(newProduct);
     }
-    @PostMapping("/Products/addProduct2/")
+    @PostMapping("/Products/addProduct2")
     public Product addProduct2(@RequestBody() Map<String,Object> body) {
        Product newProduct = new Product();
        newProduct.setProductName(body.get("productName").toString());

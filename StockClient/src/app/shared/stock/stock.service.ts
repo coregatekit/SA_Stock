@@ -55,6 +55,12 @@ export class StockService {
     result = this.http.put(this.API + '/Products/editProduct', product);
     return result;
   }
+
+  public editProduct2(product: Form): Observable<any> {
+    let result;
+    result = this.http.put(this.API + '/Products/editProduct2', product);
+    return result;
+  }
   /*
   public editProduct(editProductId:number, editNewProductName:string, editProductDetail:string, editProductImgUrl:string, editProductPrice:number):Observable<any> {
     return this.http.put(this.API + '/Products/editProduct/' + editProductId + '/' + editNewProductName + '/' + editProductDetail + '/' + editProductImgUrl + '/' + editProductPrice, {
