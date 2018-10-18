@@ -18,6 +18,7 @@ public class User{
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")      
 	@Column(name="userId",unique = true, nullable = true)
     private @NonNull Long userId;
+    @Column(name="userName", unique = true)
     private @NonNull String userUsername;
     private @NonNull String userPassword;
     private @NonNull String userFirstName;

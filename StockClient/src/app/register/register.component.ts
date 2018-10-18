@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   genders: Array<any>;
   users: Array<any>;
   provinces: Array<any>;
-
+  checkUserFromDB: '';
   reg: any = {
     Username: '',
     Password: '',
@@ -57,15 +57,15 @@ export class RegisterComponent implements OnInit {
     console.log(reg);
     if (this.reg.Password != this.reg.RePassword) {
       alert("กรุณากรอกรหัสผ่านให้ตรงกัน");
-    } else if (this.reg.Username == '' || this.reg.Password == '' || this.reg.RePassword == '' 
-    || this.reg.FirstName == '' || this.reg.LastName == '' || this.reg.Address == '' ||  this.reg.Email == '' || this.reg.Telephone == '' ) {
+    } else if (this.reg.Username === '' || this.reg.Password === '' || this.reg.RePassword === '' 
+    || this.reg.FirstName === '' || this.reg.LastName === '' || this.reg.Address === '' ||  this.reg.Email === '' || this.reg.Telephone == '' ) {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-    } else if (this.reg.Gender == null) {
-      alert("กรุณากรอกเพศ")
+    } else if (this.reg.Gender === null) {
+      alert("กรุณากรอกเพศ");
     } else {
       this.registerService.register(reg).subscribe(
         data => {
-          alert('สมัครสมาชิกเรียบร้อยแล้ว')
+          alert('สมัครสมาชิกเรียบร้อยแล้ว');
           console.log('Register Successful!!', data);
         this.getUserList();
         this.reg.Username = '';
@@ -79,9 +79,10 @@ export class RegisterComponent implements OnInit {
         this.reg.Telephone = '';
         },
         error => {
-          console.log('Error! cannot add new product!', error);
+          console.log('Error! cannot register account!', error);
         }
       );
     }
   }
+
 }
