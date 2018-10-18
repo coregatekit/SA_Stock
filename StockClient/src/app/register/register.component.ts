@@ -56,7 +56,8 @@ export class RegisterComponent implements OnInit {
     } else {
       this.registerService.register(reg).subscribe(
         data => {
-          console.log('Add new product succesfull!', data);
+          alert('สมัครสมาชิกเรียบร้อยแล้ว')
+          console.log('Register Successful!!', data);
         this.getUserList();
         this.reg.Username = '';
         this.reg.Password = '';

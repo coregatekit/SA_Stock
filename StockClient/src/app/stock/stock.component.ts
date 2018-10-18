@@ -21,29 +21,20 @@ export interface OrderproductList {
   styleUrls: ['./stock.component.css']
 })
 export class StockComponent implements OnInit {
-  productSelect;
-  warehouseSelect;
+
+  disPreorderIdSelect;
   disWarehouseSelect;
-  ordWarehouseSelect;
   stocks: Array<any>;
   orderProducts: Array<any>;
   products: any;
   warehouses: Array<any>;
+  preorders: any;
+
   ordProductId: number;
   ordPreorderId: number;
   ordWarehouseId: number;
   ordProductAmount: number;
   ordTotalPrice: number;
-  newProductName: string = '';
-  newProductDetail: string = '';
-  newProductImgUrl: string = '';
-  newProductPrice: number;
-
-  editProductId: number;
-  editNewProductName: string = '';
-  editProductDetail: string = '';
-  editProductImgUrl: string = '';
-  editProductPrice: number;
 
   ThaiWarehouseLists: Array<any>;
   AboardWarehouseLists: Array<any>;
@@ -73,6 +64,7 @@ export class StockComponent implements OnInit {
     this.getOrderProductList();
     this.getProductList();
     this.getWarehouseList();
+    this.getPreorderList();
   }
 
   getStockList() {
@@ -134,14 +126,22 @@ export class StockComponent implements OnInit {
     });
   }
 
+  getPreorderList() {
+    this.stockService.getPreorder().subscribe(data => {
+      this.preorders = data;
+      console.log(this.preorders);
+    });
+  }
 
   addOrder() {
     this.stockService.addOrder(this.ordProductId, this.ordProductAmount,
        this.ordTotalPrice, this.ordPreorderId, this.ordWarehouseId).subscribe(
       data => {
+        alert('Add order succesfull!');
         console.log('Add order succesfull!', data);
+        console.log(this.ordPreorderId);
         this.getOrderProductList();
-        this.ordPreorderId = null;
+        this.ordProductId = null;
         this.ordProductAmount = null;
         this.ordTotalPrice = null;
         this.ordPreorderId = null;
@@ -152,6 +152,7 @@ export class StockComponent implements OnInit {
       }
     );
   }
+  /*
   addNewProduct(product: NgForm) {
     console.log(product);
     this.stockService.addNewProduct(product).subscribe(
@@ -169,6 +170,7 @@ export class StockComponent implements OnInit {
       }
     );
   }
+  */
   addProduct2(product: NgForm) {
     console.log(product);
     this.stockService.addProduct2(product).subscribe(
@@ -187,6 +189,7 @@ export class StockComponent implements OnInit {
     );
   }
 
+  /*
   editProduct() {
     console.log('editProduct');
     alert(this.editProductId);
@@ -205,6 +208,7 @@ export class StockComponent implements OnInit {
       );
     }
   }
+  */
 
   editProduct2(editProductData: NgForm) {
     console.log(editProductData);

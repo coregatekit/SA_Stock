@@ -36,6 +36,7 @@ public class StockSystemController {
     @Autowired private StockRepository stockRepository;
     @Autowired private ProductRepository productRepository;
     @Autowired private WarehouseRepository warehouseRepository;
+    @Autowired private PreorderRepository PreorderRepository;
 
     // OrderProduct
     @GetMapping("/OrderProducts")
@@ -107,7 +108,7 @@ public class StockSystemController {
         return warehouseRepository.findById(warehouseId);
     }
     
-
+    /*
     @PostMapping("/addOrderProduct")
     public OrderProduct addOrderProducts(@PathVariable double TotalPrice, @PathVariable Long PreOderNo, @PathVariable int ProductAmount) {
         OrderProduct newOrderProduct = new OrderProduct();
@@ -116,6 +117,7 @@ public class StockSystemController {
         newOrderProduct.setAmount(ProductAmount);
         return orderProductRepository.save(newOrderProduct);
     }
+    */
     @PostMapping("/addStock")
     public Stock addStocks(@PathVariable Product productId, @PathVariable Warehouse warehouseId) {
         Stock newStock = new Stock();
@@ -130,9 +132,10 @@ public class StockSystemController {
     public Stock newOrderProduct(OrderProduct newOrder, @PathVariable Long productId, @PathVariable int productAmount, @PathVariable double totalPrice, @PathVariable Long preorderId, @PathVariable Long warehouseId) {
         Optional<Product> takeProduct = productRepository.findById(productId);
         Optional<Warehouse> takeWarehouse = warehouseRepository.findById(warehouseId);
+        Optional<Preorder> takePreorder = PreorderRepository.findById(preorderId);
         newOrder.setAmount(productAmount);
         newOrder.setTotalPrice(totalPrice);
-        newOrder.setPreOrderId(preorderId);
+        newOrder.setPreorder(takePreorder.get());
         orderProductRepository.save(newOrder);
 
         Optional<OrderProduct> takeOrderProduct = orderProductRepository.findById(newOrder.getId());

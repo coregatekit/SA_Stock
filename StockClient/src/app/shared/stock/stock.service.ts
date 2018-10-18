@@ -27,7 +27,11 @@ export class StockService {
   getWarehouse(): Observable<any> {
     return this.http.get(this.API + '/Warehouses');
   }
-  
+
+  getPreorder(): Observable<any> {
+    return this.http.get(this.API + '/Preorders');
+  }
+
   public addOrder(ordProductId:number, ordProductAmount:number, ordTotalPrice:number, ordPreorderId:number, ordWarehouseId:number) {
     return this.http.post(this.API + '/addOrderProduct/'+ordProductId+'/'+ordProductAmount+'/'+ordTotalPrice+'/'+ordPreorderId+'/'+ordWarehouseId,{
       "productId":ordProductId,
@@ -50,21 +54,6 @@ export class StockService {
     return result;
   }
 
-  public editProduct(editProductId:number, editNewProductName:string, editProductDetail:string, editProductImgUrl:string, editProductPrice:number):Observable<any> {
-    return this.http.put(this.API + '/Products/editProduct/' + editProductId + '/' + editNewProductName + '/' + editProductDetail + '/' + editProductImgUrl + '/' + editProductPrice, {
-      'editProductName': editProductId,
-      'editNewProductName': editNewProductName,
-      'editProductDetail': editProductDetail,
-      'editProductImgUrl': editProductImgUrl,
-      'editProductPrice': editProductPrice
-    });
-  }
-
-  public editProduct2(editProductData: Form): Observable<any> {
-    let result;
-    result = this.http.put(this.API + '/Products/editProduct2', editProductData);
-    return result;
-  }
   /*
   public editProduct(editProductId:number, editNewProductName:string, editProductDetail:string, editProductImgUrl:string, editProductPrice:number):Observable<any> {
     return this.http.put(this.API + '/Products/editProduct/' + editProductId + '/' + editNewProductName + '/' + editProductDetail + '/' + editProductImgUrl + '/' + editProductPrice, {
@@ -76,4 +65,10 @@ export class StockService {
     });
   }
   */
+
+  public editProduct2(editProductData: Form): Observable<any> {
+    let result;
+    result = this.http.put(this.API + '/Products/editProduct2', editProductData);
+    return result;
+  }
 }

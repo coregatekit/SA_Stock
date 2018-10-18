@@ -14,6 +14,7 @@ import sut.sa.g21.Repository.WarehouseRepository;
 import sut.sa.g21.Repository.GenderRepository;
 import sut.sa.g21.Repository.UserRepository;
 import sut.sa.g21.Repository.ProvinceRepository;
+import sut.sa.g21.Repository.PreorderRepository;
 
 
 @SpringBootApplication
@@ -42,7 +43,15 @@ public class StockDbApplication {
 		"CMI", "PTE", "NMA", "CBI", "PKN",
 		"LOSANGELES", "MIAMI", "NEWYORK", "LONDON", "BERLIN", 
 		"PARIS", "TOKYO", "SEOUL", "TAIPEI", "SINGAPORE"};
-
+	String nameProvinceList[] = {
+		"กระบี่","กรุงเทพมหานคร","กาญจนบุรี","กาฬสินธุ์","กำแพงเพชร","ขอนแก่น","จันทบุรี","ฉะเชิงเทรา" ,"ชลบุรี","ชัยนาท","ชัยภูมิ",
+		"ชุมพร","เชียงราย","เชียงใหม่","ตรัง","ตราด","ตาก","นครนายก","นครปฐม","นครพนม","นครราชสีมา" ,"นครศรีธรรมราช","นครสวรรค์",
+		"นนทบุรี","นราธิวาส","น่าน","บุรีรัมย์","บึงกาฬ","ปทุมธานี","ประจวบคีรีขันธ์","ปราจีนบุรี","ปัตตานี" ,"พะเยา","พังงา","พัทลุง","พิจิตร",
+		"พิษณุโลก","เพชรบุรี","เพชรบูรณ์","แพร่","ภูเก็ต","มหาสารคาม","มุกดาหาร","แม่ฮ่องสอน" ,"ยโสธร","ยะลา","ร้อยเอ็ด","ระนอง",
+		"ระยอง","ราชบุรี","ลพบุรี","ลำปาง","ลำพูน","เลย","ศรีสะเกษ","สกลนคร","สงขลา" ,"สตูล","สมุทรปราการ","สมุทรสงคราม","สมุทรสาคร",
+		"สระแก้ว","สระบุรี","สิงห์บุรี","สุโขทัย","สุพรรณบุรี","สุราษฎร์ธานี" ,"สุรินทร์","หนองคาย","หนองบัวลำภู","อยุธยา","อ่างทอง","อำนาจเจริญ",
+		"อุดรธานี","อุตรดิตถ์","อุทัยธานี","อุบลราชธานี"
+	};
 	
 	public static void main(String[] args) {
 		SpringApplication.run(StockDbApplication.class, args);
@@ -53,7 +62,7 @@ public class StockDbApplication {
 	ApplicationRunner init(ProductRepository productRepository, StockRepository stockRepository,
 						   WarehouseRepository warehouseRepository, OrderProductRepository orderProductRepository,
 						   GenderRepository genderRepository, UserRepository userRepository,
-						   ProvinceRepository provinceRepository) {
+						   ProvinceRepository provinceRepository, PreorderRepository preorderRepository) {
 
 		return args -> {
 			for(int i = 0; i < productList.length; i++) {
@@ -75,6 +84,12 @@ public class StockDbApplication {
 				}
 				warehouseRepository.save(warehouse);
 			}
+			for(int i = 0; i < nameProvinceList.length; i++) {
+				Province newProvince = new Province();
+				newProvince.setProvinceName(nameProvinceList[i]);
+				provinceRepository.save(newProvince);
+			}
+			provinceRepository.findAll().forEach(System.out::println);
 			productRepository.findAll().forEach(System.out::println);
 			warehouseRepository.findAll().forEach(System.out::println);
 
@@ -92,12 +107,14 @@ public class StockDbApplication {
 			newUser.setUserTelephone("0647951994");
 			userRepository.save(newUser);
 
-			/*
-			Stream.of("กระบี่","กรุงเทพมหานคร","กาญจนบุรี","กาฬสินธุ์","กำแพงเพชร","ขอนแก่น","จันทบุรี","ฉะเชิงเทรา" ,"ชลบุรี","ชัยนาท","ชัยภูมิ","ชุมพร","เชียงราย","เชียงใหม่","ตรัง","ตราด","ตาก","นครนายก","นครปฐม","นครพนม","นครราชสีมา" ,"นครศรีธรรมราช","นครสวรรค์","นนทบุรี","นราธิวาส","น่าน","บุรีรัมย์","บึงกาฬ","ปทุมธานี","ประจวบคีรีขันธ์","ปราจีนบุรี","ปัตตานี" ,"พะเยา","พังงา","พัทลุง","พิจิตร","พิษณุโลก","เพชรบุรี","เพชรบูรณ์","แพร่","ภูเก็ต","มหาสารคาม","มุกดาหาร","แม่ฮ่องสอน" ,"ยโสธร","ยะลา","ร้อยเอ็ด","ระนอง","ระยอง","ราชบุรี","ลพบุรี","ลำปาง","ลำพูน","เลย","ศรีสะเกษ","สกลนคร","สงขลา" ,"สตูล","สมุทรปราการ","สมุทรสงคราม","สมุทรสาคร","สระแก้ว","สระบุรี","สิงห์บุรี","สุโขทัย","สุพรรณบุรี","สุราษฎร์ธานี" ,"สุรินทร์","หนองคาย","หนองบัวลำภู","อยุธยา","อ่างทอง","อำนาจเจริญ","อุดรธานี","อุตรดิตถ์","อุทัยธานี","อุบลราชธานี").forEach(provinceName -> { 
-                provinceRepository.save(new Province(provinceName));
-            });
-			provinceRepository.findAll().forEach(System.out::println);
-			*/
+			
+			String testPreorderList[] = {"Test1", "Test2", "Test3","Test4"};
+			for(int i = 0; i < testPreorderList.length; i++) {
+				Preorder preTest = new Preorder();
+				preTest.setTest(testPreorderList[i]);
+				preorderRepository.save(preTest);
+			}
+			preorderRepository.findAll().forEach(System.out::println);
 		};
 	}
 }

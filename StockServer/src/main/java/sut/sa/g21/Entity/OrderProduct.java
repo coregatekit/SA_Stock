@@ -21,8 +21,11 @@ public class OrderProduct {
 	private @NonNull Long id;
     private int Amount;
     private double TotalPrice;
-    private long PreOrderId;
     
+    @OneToOne
+    @JoinColumn(name = "Preorder_id")
+    private Preorder preorder;
+
     public OrderProduct(){}
     public OrderProduct(int Amount, double TotalPrice){
         this.Amount = Amount;
