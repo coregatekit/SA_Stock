@@ -56,6 +56,15 @@
           </mat-form-field>
         </tr>
         <tr>
+          <mat-form-field class="half-width">
+            <mat-select [(ngModel)]="reg.Province" placeholder="จังหวัด">
+              <mat-option *ngFor="let province of provinces" [value]="province.provinceId">
+                {{province.provinceName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </tr>
+        <tr>
          <mat-form-field class="full-width">
            <input type="text" matInput placeholder="E-mail" [(ngModel)]="reg.Email">
          </mat-form-field>

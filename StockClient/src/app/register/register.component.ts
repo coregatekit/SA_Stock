@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
 
   genders: Array<any>;
   users: Array<any>;
+  provinces: Array<any>;
 
   reg: any = {
     Username: '',
@@ -20,6 +21,7 @@ export class RegisterComponent implements OnInit {
     FirstName: '',
     LastName: '',
     Address: '',
+    Province: '',
     Email: '',
     Telephone: '',
     Gender: null
@@ -29,6 +31,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.getGenderList();
     this.getUserList();
+    this.getProvinceList();
   }
 
   getGenderList() {
@@ -41,6 +44,12 @@ export class RegisterComponent implements OnInit {
     this.registerService.getUser().subscribe(data => {
       this.users = data;
       console.log(this.users);
+    });
+  }
+  getProvinceList() {
+    this.registerService.getProvince().subscribe(data => {
+      this.provinces = data;
+      console.log(this.provinces);
     });
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Form } from '@angular/forms';
+import { ObserversModule } from '@angular/cdk/observers';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,9 @@ export class RegisterService {
   }
   getUser(): Observable<any> {
     return this.http.get(this.API + '/Users');
+  }
+  getProvince(): Observable<any> {
+    return this.http.get(this.API + '/Provinces');
   }
 
   public register(reg: Form): Observable<any> {
