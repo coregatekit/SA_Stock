@@ -47,8 +47,8 @@
                   <mat-tab label="แก้ไขข้อมูลสินค้า">
                     <table class="edit-product" cellspacing="5">
                         <mat-form-field>
-                            <mat-select [(ngModel)]="editProductData.id" placeholder="เลือกสินค้า">
-                              <mat-option *ngFor="let products of products" [value]="products.id">
+                            <mat-select [(ngModel)]="editProductData.productId" placeholder="เลือกสินค้า">
+                              <mat-option *ngFor="let products of products" [value]="products.productId">
                                 {{products.productName}}
                               </mat-option>
                             </mat-select>
@@ -142,8 +142,8 @@
                     <tr>
                       <mat-form-field class="preorder-id">
                         <mat-select [(ngModel)]="disOrderProductIdSelect" placeholder="หมายเลขใบสั่งซื้อ">
-                          <mat-option *ngFor="let orderproduct of orderProducts" [value]="orderproduct.id">
-                            {{orderproduct.id}}
+                          <mat-option *ngFor="let orderProduct of orderProducts" [value]="orderProduct.orderProductId">
+                            {{orderProduct.orderProductId}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -151,7 +151,7 @@
                     <tr>
                       <mat-form-field class="warehouse">
                         <mat-select [(ngModel)]="disWarehouseSelect" placeholder="คลังสินค้าที่จะย้ายไป">
-                          <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
+                          <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseId">
                             {{warehouse.warehouseName}}
                           </mat-option>
                         </mat-select>
@@ -177,8 +177,8 @@
                   <tr>
                     <mat-form-field class="preorder-id">
                       <mat-select [(ngModel)]="ordPreorderId" placeholder="หมายเลขใบสั่งจอง">
-                        <mat-option *ngFor="let preorders of preorders" [value]="preorders.id">
-                          {{preorders.id}}
+                        <mat-option *ngFor="let preorders of preorders" [value]="preorders.preId">
+                          {{preorders.preId}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -186,7 +186,7 @@
                   <tr>
                        <mat-form-field class="product-name">
                          <mat-select [(ngModel)]="ordProductId" placeholder="สินค้า">
-                          <mat-option *ngFor="let products of products" [value]="products.id">
+                          <mat-option *ngFor="let products of products" [value]="products.productId">
                             {{products.productName}}
                           </mat-option>
                         </mat-select>

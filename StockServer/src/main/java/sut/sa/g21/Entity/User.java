@@ -16,8 +16,8 @@ public class User{
     @Id
 	@SequenceGenerator(name="user_seq",sequenceName="user_seq")       
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")      
-	@Column(name="User_id",unique = true, nullable = true)
-    private @NonNull Long id;
+	@Column(name="userId",unique = true, nullable = true)
+    private @NonNull Long userId;
     private @NonNull String userUsername;
     private @NonNull String userPassword;
     private @NonNull String userFirstName;
@@ -27,7 +27,7 @@ public class User{
     private @NonNull String userAddress;
 
     @ManyToOne()   
-    @JoinColumn(name= "Gender_id")     
+    @JoinColumn(name= "genderId")     
     private Gender genders;    
 
     public User(){}

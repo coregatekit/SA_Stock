@@ -17,8 +17,8 @@ public class Warehouse {
     @Id
 	@SequenceGenerator(name="warehouse_seq",sequenceName="warehouse_seq")       
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="warehouse_seq")      
-	@Column(name="Warehouse_id",unique = true, nullable = true)
-	private @NonNull Long id;
+	@Column(name="warehouseId",unique = true, nullable = true)
+	private @NonNull Long warehouseId;
     private String warehouseName;
     private String warehouseCode;
     private String warehouseAddress;

@@ -90,7 +90,7 @@ public class StockSystemController {
     
     @PutMapping("/Products/editProduct2")
     public Product editProduct2(@RequestBody() Map<String,Object> body) {
-        Optional<Product> editProduct = productRepository.findById(Long.valueOf(body.get("id").toString()));
+        Optional<Product> editProduct = productRepository.findById(Long.valueOf(body.get("productId").toString()));
         editProduct.get().setProductName(body.get("productName").toString());
         editProduct.get().setProductImgUrl(body.get("productImgUrl").toString());
         editProduct.get().setProductPrice(Double.valueOf(body.get("productPrice").toString()));
@@ -128,17 +128,17 @@ public class StockSystemController {
 
     
     
-    @PostMapping("/addOrderProduct/{productId}/{productAmount}/{totalPrice}/{preorderId}/{warehouseId}")
-    public Stock newOrderProduct(OrderProduct newOrder, @PathVariable Long productId, @PathVariable int productAmount, @PathVariable double totalPrice, @PathVariable Long preorderId, @PathVariable Long warehouseId) {
+    @PostMapping("/addOrderProduct/{productId}/{productAmount}/{totalPrice}/{preId}/{warehouseId}")
+    public Stock newOrderProduct(OrderProduct newOrder, @PathVariable Long productId, @PathVariable int productAmount, @PathVariable double totalPrice, @PathVariable Long preId, @PathVariable Long warehouseId) {
         Optional<Product> takeProduct = productRepository.findById(productId);
         Optional<Warehouse> takeWarehouse = warehouseRepository.findById(warehouseId);
-        Optional<Preorder> takePreorder = PreorderRepository.findById(preorderId);
+        Optional<Preorder> takePreorder = PreorderRepository.findById(preId);
         newOrder.setAmount(productAmount);
         newOrder.setTotalPrice(totalPrice);
         newOrder.setPreorder(takePreorder.get());
         orderProductRepository.save(newOrder);
 
-        Optional<OrderProduct> takeOrderProduct = orderProductRepository.findById(newOrder.getId());
+        Optional<OrderProduct> takeOrderProduct = orderProductRepository.findById(newOrder.getOrderProductId());
         Stock newStock = new Stock();
         newStock.setProductId(takeProduct.get());
         newStock.setWarehouseId(takeWarehouse.get());

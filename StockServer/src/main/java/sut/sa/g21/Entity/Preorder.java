@@ -17,8 +17,8 @@ public class Preorder{
     @Id
 	@SequenceGenerator(name="preorder_seq",sequenceName="preorder_seq")       
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="preorder_seq")      
-	@Column(name="Preorder_id",unique = true, nullable = true)
-    private @NonNull Long id;
+	@Column(name="preId",unique = true, nullable = true)
+    private @NonNull Long preId;
     private @NonNull String test;
 
     public Preorder(){}

@@ -17,13 +17,13 @@ public class OrderProduct {
     @Id
 	@SequenceGenerator(name="orderproduct_seq",sequenceName="orderproduct_seq")       
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="orderproduct_seq")      
-	@Column(name="OrderProduct_id",unique = true, nullable = true)
-	private @NonNull Long id;
+	@Column(name="orderProductId",unique = true, nullable = true)
+	private @NonNull Long orderProductId;
     private int Amount;
     private double TotalPrice;
     
     @OneToOne
-    @JoinColumn(name = "Preorder_id")
+    @JoinColumn(name = "preId")
     private Preorder preorder;
 
     public OrderProduct(){}

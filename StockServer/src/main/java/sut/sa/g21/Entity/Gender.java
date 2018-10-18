@@ -17,16 +17,16 @@ public class Gender {
     @Id
 	@SequenceGenerator(name="gender_seq",sequenceName="gender_seq")       
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="gender_seq")      
-	@Column(name="Gender_id",unique = true, nullable = true)
-    private @NonNull int id;
+	@Column(name="genderId",unique = true, nullable = true)
+    private @NonNull int genderId;
     private @NonNull String genderName;
 
     public Gender(){}
     public Gender(String genderName) {
         this.genderName = genderName;
     }
-    public Gender(int id) {
-        this.id = id;
+    public Gender(int genderId) {
+        this.genderId = genderId;
     }
 
 } 

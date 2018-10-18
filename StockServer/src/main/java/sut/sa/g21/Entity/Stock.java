@@ -16,24 +16,24 @@ public class Stock{
     @Id
 	@SequenceGenerator(name="stock_seq",sequenceName="stock_seq")       
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="stock_seq")      
-	@Column(name="Stock_id",unique = true, nullable = true)
-    private @NonNull Long id;
+	@Column(name="stockId",unique = true, nullable = true)
+    private @NonNull Long stockId;
 
     // Stock --> Product
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "Product_id")
+    @JoinColumn(name= "productId")
     @JsonBackReference
     private Product product;
     
     // Stock --> Warehouse
     @ManyToOne(fetch = FetchType.LAZY)   
-    @JoinColumn(name= "Warehouse_id")     
+    @JoinColumn(name= "warehouseId")     
     @JsonBackReference 
     private Warehouse warehouse;    
 
     // Stock --> OrderProduct
     @OneToOne
-    @JoinColumn(name = "OrderProduct_id")
+    @JoinColumn(name = "orderProductId")
     private OrderProduct orderProduct;
 
     public Stock(){}

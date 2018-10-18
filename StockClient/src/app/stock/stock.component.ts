@@ -11,7 +11,7 @@ export interface WarehouseList {
 }
 export interface OrderproductList {
   orderproductId: number;
-  preorderId: number;
+  preId: number;
   amount: number;
   totalPrice: number;
 }
@@ -48,7 +48,7 @@ export class StockComponent implements OnInit {
     productPrice: ''
   };
   editProductData: any = {
-    id: '',
+    productId: '',
     productName: '',
     productImgUrl: '',
     productDetail: '',
@@ -80,8 +80,8 @@ export class StockComponent implements OnInit {
       console.log(this.orderProducts);
       for (let index = 0; index < this.orderProducts["length"]; index++) {
         orderProductList.push({
-          orderproductId: this.orderProducts[index].orderproductId,
-          preorderId: this.orderProducts[index].preorderId,
+          orderproductId: this.orderProducts[index].orderProductId,
+          preId: this.orderProducts[index].preId,
           amount: this.orderProducts[index].amount,
           totalPrice: this.orderProducts[index].totalPrice,
         });
@@ -105,14 +105,14 @@ export class StockComponent implements OnInit {
       for (let index = 0; index < data['length']; index++) {
         if (data[index].warehouseAddress === 'THAI') {
           ThaiWarehouseLists.push({
-            warehouseId: data[index].id,
+            warehouseId: data[index].warehouseId,
             warehouseAddress: data[index].warehouseAddress,
             warehouseCode: data[index].warehouseCode,
             warehouseName: data[index].warehouseName
           });
         } else {
           AboardWarehouseLists.push({
-            warehouseId: data[index].id,
+            warehouseId: data[index].warehouseId,
             warehouseAddress: data[index].warehouseAddress,
             warehouseCode: data[index].warehouseCode,
             warehouseName: data[index].warehouseName
@@ -137,7 +137,7 @@ export class StockComponent implements OnInit {
     this.stockService.addOrder(this.ordProductId, this.ordProductAmount,
        this.ordTotalPrice, this.ordPreorderId, this.ordWarehouseId).subscribe(
       data => {
-        alert('Add order success!');
+        alert('เพิ่มรายการสั่งซื้อเรียบร้อยแล้ว!');
         console.log('Add order success!', data);
         console.log(this.ordPreorderId);
         this.getOrderProductList();
@@ -148,6 +148,7 @@ export class StockComponent implements OnInit {
         this.ordWarehouseId = null;
       },
       error => {
+        alert('ไม่สามารถทำรายการได้!');
         console.log('Error! cannot add new order', error);
       }
     );
@@ -175,7 +176,7 @@ export class StockComponent implements OnInit {
     console.log(product);
     this.stockService.addProduct2(product).subscribe(
       data => {
-        alert('Add new product success!');
+        alert('เพื่มสินค้าใหม่เรียบร้อยแล้ว!');
         console.log('Add new product success!', data);
         this.getProductList();
         this.product.productName = '';
@@ -184,6 +185,7 @@ export class StockComponent implements OnInit {
         this.product.productPrice = '';
       },
       error => {
+        alert('ไม่สามารถเพื่มสินค้าใหม่ได้');
         console.log('Error! cannot add new product!', error);
       }
     );
@@ -218,13 +220,18 @@ export class StockComponent implements OnInit {
     } else {
       this.stockService.editProduct2(editProductData).subscribe(
         data => {
-          alert('Edit product success!');
+          alert('แก้ไขข้อมูลสำเร็จ!');
+          console.log('Edit product success!');
           this.getProductList();
-          this.editProductData.id = '';
+          this.editProductData.productId = '';
           this.editProductData.productName = '';
           this.editProductData.productImgUrl = '';
           this.editProductData.productDetail = '';
           this.editProductData.productPrice = '';
+        },
+        error => {
+          alert('ไม่สามารถแก้ไขข้อมูลได้');
+          console.log('Error! cannot edit product!', error);
         }
       );
     }

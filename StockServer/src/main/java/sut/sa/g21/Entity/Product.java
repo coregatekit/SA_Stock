@@ -16,8 +16,8 @@ public class Product{
     @Id
 	@SequenceGenerator(name="product_seq",sequenceName="product_seq")       
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="product_seq")      
-	@Column(name="Prdouct_id",unique = true, nullable = true)
-	private @NonNull Long id;
+	@Column(name="productId",unique = true, nullable = true)
+	private @NonNull Long productId;
     private @NonNull String productName;
     private String productDetail;
     private String productImgUrl;
@@ -48,34 +48,4 @@ public class Product{
     */
     
     public Product() {}
-    
-    /*
-    public Product(String productName,String productDetail,double productPrice,String productImgUrl,long classId,long countryId,long typeId){
-        Country country = new Country(countryId);
-        Classification classification = new Classification(classId);
-        Type type = new Type(typeId);
-        this.productName = productName;
-        this.productDetail = productDetail;
-        this.productPrice = productPrice;
-        this.productImgUrl = productImgUrl;
-        this.country = country;
-        this.classification = classification;
-        this.type = type;
-    }
-    */
-
-    
-    public void setProductName(String Name) {
-        this.productName = Name;
-    }
-    public void setProductDetail(String Detail) {
-        this.productDetail = Detail;
-    }
-    public void setProductImgUrl(String ImgUrl) {
-        this.productImgUrl = ImgUrl;
-    }
-    public void setProductPrice(Double Price) {
-        this.productPrice = Price;
-    }
-    
 }
