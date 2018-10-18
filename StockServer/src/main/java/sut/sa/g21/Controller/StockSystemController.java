@@ -133,6 +133,7 @@ public class StockSystemController {
         Optional<Product> takeProduct = productRepository.findById(productId);
         Optional<Warehouse> takeWarehouse = warehouseRepository.findById(warehouseId);
         Optional<Preorder> takePreorder = PreorderRepository.findById(preId);
+        takePreorder.get().setOrderStatus(true);
         newOrder.setAmount(productAmount);
         newOrder.setTotalPrice(totalPrice);
         newOrder.setPreorder(takePreorder.get());
@@ -164,6 +165,5 @@ public class StockSystemController {
         
     }
     */
-    
     
 }

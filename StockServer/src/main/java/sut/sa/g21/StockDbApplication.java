@@ -108,10 +108,8 @@ public class StockDbApplication {
 			userRepository.save(newUser);
 
 			
-			String testPreorderList[] = {"Test1", "Test2", "Test3","Test4"};
-			for(int i = 0; i < testPreorderList.length; i++) {
+			for(int i = 0; i < 5; i++) {
 				Preorder preTest = new Preorder();
-				preTest.setTest(testPreorderList[i]);
 				preorderRepository.save(preTest);
 			}
 			preorderRepository.findAll().forEach(System.out::println);

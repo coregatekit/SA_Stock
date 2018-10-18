@@ -44,9 +44,4 @@ public class UserController {
         return userRepository.save(regis);
     }
 
-    @PutMapping("/CheckUser/{checkUsr}")
-    public User checkUser(@PathVariable String checkUsr) {
-        return userRepository.findByName(checkUsr);
-    }
-
 }

@@ -15,6 +15,10 @@ export interface OrderproductList {
   amount: number;
   totalPrice: number;
 }
+export interface PreordersNotOrderList {
+  preId: number;
+  orderStatus: String;
+}
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
@@ -36,6 +40,7 @@ export class StockComponent implements OnInit {
   ordProductAmount: number;
   ordTotalPrice: number;
 
+  PreordersNotOrder: Array<any>;
   ThaiWarehouseLists: Array<any>;
   AboardWarehouseLists: Array<any>;
 
@@ -128,8 +133,20 @@ export class StockComponent implements OnInit {
 
   getPreorderList() {
     this.stockService.getPreorder().subscribe(data => {
-      this.preorders = data;
       console.log(this.preorders);
+      const PreordersNotOrder: PreordersNotOrderList[] = [];
+      for (let index = 0; index < data['length']; index++) {
+        if (data[index].orderStatus === false) {
+          PreordersNotOrder.push({
+            preId: data[index].preId,
+            orderStatus: data[index].orderStatus
+          });
+        } else {
+          this.preorders = data;
+        }
+      }
+      this.PreordersNotOrder = PreordersNotOrder;
+      console.log(PreordersNotOrder);
     });
   }
 
@@ -141,6 +158,7 @@ export class StockComponent implements OnInit {
         console.log('Add order success!', data);
         console.log(this.ordPreorderId);
         this.getOrderProductList();
+        this.getPreorderList();
         this.ordProductId = null;
         this.ordProductAmount = null;
         this.ordTotalPrice = null;

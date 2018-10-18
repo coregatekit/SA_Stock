@@ -7,6 +7,4 @@ import sut.sa.g21.Entity.User;;
 
 @RepositoryRestResource
 public interface UserRepository extends JpaRepository<User, Long> {
-
-	User findByName(String checkUsr);
 }

@@ -177,8 +177,8 @@
                   <tr>
                     <mat-form-field class="preorder-id">
                       <mat-select [(ngModel)]="ordPreorderId" placeholder="หมายเลขใบสั่งจอง">
-                        <mat-option *ngFor="let preorders of preorders" [value]="preorders.preId">
-                          {{preorders.preId}}
+                        <mat-option *ngFor="let Preorder of PreordersNotOrder" [value]="Preorder.preId">
+                          {{Preorder.preId}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>

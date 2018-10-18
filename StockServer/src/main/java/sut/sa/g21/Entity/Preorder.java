@@ -19,11 +19,8 @@ public class Preorder{
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="preorder_seq")      
 	@Column(name="preId",unique = true, nullable = true)
     private @NonNull Long preId;
-    private @NonNull String test;
+    private @NonNull Boolean orderStatus = false;
 
     public Preorder(){}
-    public Preorder(String test){
-        this.test = test;
-    }
 
 }
