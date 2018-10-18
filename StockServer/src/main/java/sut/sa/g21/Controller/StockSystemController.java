@@ -147,6 +147,14 @@ public class StockSystemController {
     }
     
     
+    @PutMapping("/movProduct/{orderId}/{warehouseId}")
+    public Stock movProduct(@PathVariable Long orderId, @PathVariable Long warehouseId) {
+        Optional<OrderProduct> findOrder = orderProductRepository.findById(orderId);
+        Stock findStock = stockRepository.findByOrderProduct(findOrder.get());
+        Optional<Warehouse> findWarehouse = warehouseRepository.findById(warehouseId);
+        findStock.setWarehouseId(findWarehouse.get());
+        return stockRepository.save(findStock);
+    }
     /*
     @PostMapping("/addOrderProduct/{productId}/{productAmount}/{totalPrice}/{preorderId}/{warehouseId}")
     public void newOrder(OrderProduct newOrder, @PathVariable Product productId, @PathVariable int productAmount, @PathVariable double totalPrice, @PathVariable Long preorderId, @PathVariable Warehouse warehouseId) {

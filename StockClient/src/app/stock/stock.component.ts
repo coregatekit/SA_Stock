@@ -22,7 +22,7 @@ export interface OrderproductList {
 })
 export class StockComponent implements OnInit {
 
-  disPreorderIdSelect;
+  disOrderProductIdSelect;
   disWarehouseSelect;
   stocks: Array<any>;
   orderProducts: Array<any>;
@@ -137,8 +137,8 @@ export class StockComponent implements OnInit {
     this.stockService.addOrder(this.ordProductId, this.ordProductAmount,
        this.ordTotalPrice, this.ordPreorderId, this.ordWarehouseId).subscribe(
       data => {
-        alert('Add order succesfull!');
-        console.log('Add order succesfull!', data);
+        alert('Add order success!');
+        console.log('Add order success!', data);
         console.log(this.ordPreorderId);
         this.getOrderProductList();
         this.ordProductId = null;
@@ -175,8 +175,8 @@ export class StockComponent implements OnInit {
     console.log(product);
     this.stockService.addProduct2(product).subscribe(
       data => {
-        alert('Add new product succesfull!');
-        console.log('Add new product succesfull!', data);
+        alert('Add new product success!');
+        console.log('Add new product success!', data);
         this.getProductList();
         this.product.productName = '';
         this.product.productDetail = '';
@@ -218,7 +218,7 @@ export class StockComponent implements OnInit {
     } else {
       this.stockService.editProduct2(editProductData).subscribe(
         data => {
-          alert('Edit product succesfull!');
+          alert('Edit product success!');
           this.getProductList();
           this.editProductData.id = '';
           this.editProductData.productName = '';
@@ -228,5 +228,21 @@ export class StockComponent implements OnInit {
         }
       );
     }
+  }
+
+  movProduct() {
+    this.stockService.movProduct(this.disOrderProductIdSelect, this.disWarehouseSelect).subscribe(
+      data => {
+        alert('เคลื่อนย้ายสินค้าเรียบร้อยแล้ว');
+        console.log('Move product success!', data);
+        this.getOrderProductList();
+        this.disOrderProductIdSelect = null;
+        this.disWarehouseSelect = null;
+      },
+      error => {
+        alert('ไม่สามารถทำรายการได้');
+        console.log('Error! cannot move product', error);
+      }
+    );
   }
 }

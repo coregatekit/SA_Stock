@@ -71,4 +71,11 @@ export class StockService {
     result = this.http.put(this.API + '/Products/editProduct2', editProductData);
     return result;
   }
+
+  public movProduct(orderProductId: number, warehouseId: number) {
+    return this.http.put(this.API + '/movProduct/' + orderProductId + '/' + warehouseId, {
+      "orderProductId": orderProductId,
+      "warehouseId": warehouseId
+    });
+  }
 }

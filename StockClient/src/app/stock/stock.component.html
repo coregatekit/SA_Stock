@@ -141,7 +141,7 @@
                       </tr>
                     <tr>
                       <mat-form-field class="preorder-id">
-                        <mat-select [(ngModel)]="ordPreorderIdSelect" placeholder="หมายเลขใบสั่งซื้อ">
+                        <mat-select [(ngModel)]="disOrderProductIdSelect" placeholder="หมายเลขใบสั่งซื้อ">
                           <mat-option *ngFor="let orderproduct of orderProducts" [value]="orderproduct.id">
                             {{orderproduct.id}}
                           </mat-option>
@@ -158,11 +158,10 @@
                       </mat-form-field>
                     </tr>
                     <tr>
-                      <button mat-raised-button color="primary">ยืนยัน</button>
+                      <button mat-raised-button color="primary" (click)="movProduct()">ยืนยัน</button>
                     </tr>
                   </table>
                 </mat-tab>
-
               </mat-tab-group>
           </div>
         </mat-expansion-panel>
