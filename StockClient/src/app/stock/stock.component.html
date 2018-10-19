@@ -65,7 +65,7 @@
                       </tr>
                       <tr>
                           <mat-form-field class="product-price">
-                              <input matInput name="product.editProductPrice" placeholder="ราคา" class="example-right-align" [(ngModel)]="editProductData.productPrice">
+                              <input matInput name="product.editProductPrice" type="number" placeholder="ราคา" class="example-right-align" [(ngModel)]="editProductData.productPrice">
                               <span matPrefix>฿&nbsp;</span>
                           </mat-form-field>
                       </tr>
@@ -106,35 +106,28 @@
                     </mat-form-field>
                   </div>
                   <br>
-                  <table mat-table>
-                      <!-- รหัสสินค้า Column -->
+                  
+                  <table mat-table [dataSource]="dataSource">
                       <ng-container matColumnDef="orderproductId">
-                          <th mat-header-cell *matHeaderCellDef> รหัสสินค้า </th>
+                          <th mat-header-cell *matHeaderCellDef> เลขที่ใบสั่งซื้อ </th>
                           <td ma-cell *matCellDef="let element"> {{element.orderproductId}} </td>
                         </ng-container>
-    
-                        <!-- ชื่อสินค้า Column -->
-                        <ng-container matColumnDef="preorderId">
-                          <th mat-header-cell *matHeaderCellDef> ชื่อสินค้า </th>
-                          <td mat-cell *matCellDef="let element"> {{element.preorderId}} </td>
+
+                        <ng-container matColumnDef="preId">
+                          <th mat-header-cell *matHeaderCellDef> เลขที่ใบพรีออเดอร์ </th>
+                          <td mat-cell *matCellDef="let element"> {{element.preId}} </td>
                         </ng-container>
-                
-                        <!-- หมวดหมู่ Column -->
-                        <ng-container matColumnDef="amount">
-                          <th mat-header-cell *matHeaderCellDef> หมวดหมู่ </th>
-                          <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-                        </ng-container>
-                
-                        <!-- ประเทศ Column -->
-                        <ng-container matColumnDef="totalPrice">
-                          <th mat-header-cell *matHeaderCellDef> ประเทศ </th>
-                          <td mat-cell *matCellDef="let element"> {{element.totalPrice}} </td>
+
+                        <ng-container matColumnDef="preStatus">
+                          <th mat-header-cell *matHeaderCellDef> สถานะสั่งซื้อ </th>
+                          <td mat-cell *matCellDef="let element"> {{element.preStatus}} </td>
                         </ng-container>
     
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
                     </table>
+                   
                     <table class="manage-product" cellspacing="5">
                       <tr>
                           <br><br><p>ย้ายสินค้าไปคลังอื่น</p><hr>
@@ -151,7 +144,7 @@
                     <tr>
                       <mat-form-field class="warehouse">
                         <mat-select [(ngModel)]="disWarehouseSelect" placeholder="คลังสินค้าที่จะย้ายไป">
-                          <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseId">
+                          <mat-option *ngFor="let warehouse of ThaiWarehouseLists" [value]="warehouse.warehouseId">
                             {{warehouse.warehouseName}}
                           </mat-option>
                         </mat-select>
@@ -195,12 +188,12 @@
               
                   <tr>
                     <mat-form-field class="product-amount">
-                      <input matInput name="ordProductAmount" placeholder="จำนวน" [(ngModel)]="ordProductAmount">
+                      <input matInput name="ordProductAmount" type="number" placeholder="จำนวน" [(ngModel)]="ordProductAmount">
                     </mat-form-field>
                   </tr>
                   <tr>
                     <mat-form-field class="product-price">
-                      <input matInput name="ordTotalPrice" placeholder="ราคา" [(ngModel)]="ordTotalPrice">
+                      <input matInput name="ordTotalPrice" type="number" placeholder="ราคา" [(ngModel)]="ordTotalPrice">
                     </mat-form-field>
                   </tr>
                   <tr>

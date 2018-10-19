@@ -12,8 +12,8 @@ export interface WarehouseList {
 export interface OrderproductList {
   orderproductId: number;
   preId: number;
-  amount: number;
-  totalPrice: number;
+  preStatus: boolean;
+
 }
 export interface PreordersNotOrderList {
   preId: number;
@@ -44,7 +44,7 @@ export class StockComponent implements OnInit {
   ThaiWarehouseLists: Array<any>;
   AboardWarehouseLists: Array<any>;
 
-  displayedColumns: string[] = ['orderproductId', 'preorderId', 'amount', 'totalPrice'];
+  displayedColumns: string[] = ['orderproductId', 'preId', 'preStatus'];
   dataSource: MatTableDataSource<OrderproductList>;
   product: any = {
     productName: '',
@@ -66,10 +66,10 @@ export class StockComponent implements OnInit {
   constructor(private stockService: StockService) { }
   ngOnInit() {
     this.getStockList();
-    this.getOrderProductList();
     this.getProductList();
     this.getWarehouseList();
     this.getPreorderList();
+    this.getOrderProductList();
   }
 
   getStockList() {
@@ -81,18 +81,23 @@ export class StockComponent implements OnInit {
   getOrderProductList() {
     this.stockService.getOrderProduct().subscribe(data => {
       this.orderProducts = data;
-      const orderProductList: OrderproductList[] = [];
       console.log(this.orderProducts);
+
+      const orderProductList: OrderproductList[] = [];
+      console.log('ingetOrderProductList');
+
       for (let index = 0; index < this.orderProducts["length"]; index++) {
         orderProductList.push({
           orderproductId: this.orderProducts[index].orderProductId,
-          preId: this.orderProducts[index].preId,
-          amount: this.orderProducts[index].amount,
-          totalPrice: this.orderProducts[index].totalPrice,
+          preId: this.orderProducts[index].preorder.preId,
+          preStatus: this.orderProducts[index].preorder.orderStatus
         });
         }
         this.dataSource = new MatTableDataSource(orderProductList);
         this.dataSource.paginator = this.paginator;
+        console.log('data source');
+        console.log(this.dataSource);
+
     });
   }
   getProductList() {
@@ -269,5 +274,9 @@ export class StockComponent implements OnInit {
         console.log('Error! cannot move product', error);
       }
     );
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
